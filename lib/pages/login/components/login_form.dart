@@ -54,9 +54,9 @@ class _LoginFormState extends State<LoginForm> {
                 prefixIcon: Icon(Icons.password),
               ),
               validator: (value) {
-                return value!.trim().length > 5
+                return value!.trim().isNotEmpty
                     ? null
-                    : "The length of password should be greater than five";
+                    : "Please enter your password";
               },
             ),
             Padding(

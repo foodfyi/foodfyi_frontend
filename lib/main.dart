@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/pages/login/login.dart';
+import 'package:foodfyi/pages/menu/main.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Food.FYI@CU',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -53,17 +54,25 @@ class MyApp extends StatelessWidget {
           ),
         ),
         textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-                elevation: 0, foregroundColor: Colors.black)),
+          style: TextButton.styleFrom(
+            elevation: 0,
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.white,
+          ),
+        ),
         textSelectionTheme:
             const TextSelectionThemeData(cursorColor: pinkColor),
-        dividerTheme: const DividerThemeData(color: pinkColor, thickness: 2),
+        dividerTheme: const DividerThemeData(
+          color: greyColor,
+          thickness: dividerThickness,
+        ),
         snackBarTheme: const SnackBarThemeData(
           backgroundColor: greyBackground,
           actionTextColor: pinkHeavyColor,
+          contentTextStyle: TextStyle(color: pinkHeavyColor),
         ),
       ),
-      home: const Login(),
+      home: const MenuMain(),
     );
   }
 }

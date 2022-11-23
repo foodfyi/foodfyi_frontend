@@ -1,0 +1,36 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'dish.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Dish _$DishFromJson(Map<String, dynamic> json) => Dish(
+      id: json['id'] as int,
+      name: json['name'] as String,
+      price: (json['price'] as num).toDouble(),
+      rating: (json['rating'] as num?)?.toDouble(),
+      imgUrl: (json['imgUrl'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+      allergyNoteIds: (json['allergyNoteIds'] as List<dynamic>?)
+              ?.map((e) => e as int)
+              .toList() ??
+          [],
+      flavorIds: (json['flavorIds'] as List<dynamic>?)
+              ?.map((e) => e as int)
+              .toList() ??
+          [],
+    );
+
+Map<String, dynamic> _$DishToJson(Dish instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'price': instance.price,
+      'rating': instance.rating,
+      'imgUrl': instance.imgUrl,
+      'allergyNoteIds': instance.allergyNoteIds,
+      'flavorIds': instance.flavorIds,
+    };

@@ -64,8 +64,8 @@ class MyApp extends StatelessWidget {
         textSelectionTheme:
             const TextSelectionThemeData(cursorColor: pinkColor),
         dividerTheme: const DividerThemeData(
-          color: greyColor,
-          thickness: dividerThickness,
+          color: Colors.transparent,
+          thickness: 0,
         ),
         snackBarTheme: const SnackBarThemeData(
           backgroundColor: greyBackground,

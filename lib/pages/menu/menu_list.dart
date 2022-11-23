@@ -32,24 +32,41 @@ class _MenuListState extends State<MenuList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('menu'),
-      ),
-      persistentFooterButtons: [
-        Center(
-          child: TextButton(
-            onPressed: () => {},
-            child: Text("Release Menu"),
+    return Theme(
+      data: ThemeData().copyWith(
+        dividerColor: Colors.transparent,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            backgroundColor: pinkHeavyColor,
+            shape: const StadiumBorder(),
+            maximumSize: const Size(double.infinity, 50),
+            minimumSize: const Size(double.infinity, 50),
           ),
         ),
-      ],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => setState(() => {}),
-        tooltip: 'Add Dish',
-        backgroundColor: pinkHeavyColor,
-        child: const Icon(
-          Icons.add,
+      ),
+      child: Scaffold(
+        body: Center(
+          child: Text('menu'),
+        ),
+        persistentFooterButtons: [
+          Center(
+            child: IntrinsicWidth(
+              child: ElevatedButton(
+                onPressed: () => {},
+                child: const Text("Release Menu"),
+              ),
+            ),
+          ),
+        ],
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => setState(() => {}),
+          tooltip: 'Add Dish',
+          backgroundColor: pinkHeavyColor,
+          child: const Icon(
+            Icons.add,
+          ),
         ),
       ),
     );

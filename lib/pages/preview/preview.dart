@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/dish.dart';
+import 'package:foodfyi/pages/preview/detail.dart';
 
 class PreviewMenu extends StatefulWidget {
   const PreviewMenu({super.key});
@@ -58,7 +59,18 @@ class _PreviewMenuState extends State<PreviewMenu> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return DishDetail(
+                                            dish: previewDishes[index],
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
                                 );
                               },
                             ),

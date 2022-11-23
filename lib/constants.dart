@@ -24,6 +24,7 @@ const border = BorderRadius.all(Radius.circular(10.0));
 const TextStyle textLargeSize = TextStyle(fontSize: 20);
 const TextStyle textMiddleSize = TextStyle(fontSize: 15);
 const TextStyle textSmallSize = TextStyle(fontSize: 10);
+const TextStyle titleSize = TextStyle(fontSize: 30);
 
 const double imgWidth = 80.0;
 const double imgHeight = 80.0;
@@ -33,6 +34,9 @@ const double dividerThickness = 1.5;
 const double previewImg = 150;
 const double iconsize = 15;
 const double tagSize = 25;
+const double previewDishImg = 300;
+const int tagCrossAxisCount = 4;
+const double tagHeight = 50;
 
 ButtonStyle previewTagStyle = TextButton.styleFrom(
   elevation: 0,

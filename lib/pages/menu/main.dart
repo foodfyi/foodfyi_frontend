@@ -28,18 +28,18 @@ class _MenuMainState extends State<MenuMain> {
             Icon(
               Icons.star_rounded,
               color: pinkHeavyColor,
-              size: 20.0,
+              size: iconsize,
             ),
             Text(
               ' 4.5',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: defaultPadding * 0.5),
             ),
             Text(
-              'xxx reviews',
-              style: TextStyle(fontSize: 14, color: greyHeavyColor),
+              '20 reviews',
+              style: TextStyle(fontSize: 15, color: greyHeavyColor),
             ),
           ],
         ),

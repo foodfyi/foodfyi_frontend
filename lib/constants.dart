@@ -30,6 +30,18 @@ const double imgHeight = 80.0;
 
 const double dividerThickness = 1.5;
 
+const double previewImg = 150;
+const double iconsize = 15;
+const double tagSize = 25;
+
+ButtonStyle previewTagStyle = TextButton.styleFrom(
+  elevation: 0,
+  disabledForegroundColor: Colors.white,
+  disabledBackgroundColor: pinkHeavyColor,
+  textStyle: textSmallSize,
+  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+);
+
 // maximum load size per page
 const int menuLoadSize = 15;
 
@@ -43,7 +55,6 @@ final mockDishes = <Dish>[
     allergyNoteIds: [5, 6, 7, 8],
     flavorIds: [0],
     imgUrl: [
-      'https://dining.columbia.edu/sites/default/files/2019-08/oatmeal.jpg',
       'https://brokebankvegan.com/wp-content/uploads/2021/02/Mexican-Oatmeal-8.jpg',
     ],
   ),
@@ -54,6 +65,7 @@ final mockDishes = <Dish>[
     rating: 4.5,
     imgUrl: [
       'https://dining.columbia.edu/sites/default/files/2019-06/bagels.jpg',
+      'https://www.kingarthurbaking.com/sites/default/files/2021-12/step-18.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/1/1d/Bagel-Plain-Alt.jpg'
     ],
     allergyNoteIds: [9],
@@ -66,7 +78,8 @@ final mockDishes = <Dish>[
     allergyNoteIds: [5],
     flavorIds: [0],
     imgUrl: [
-      'https://dining.columbia.edu/sites/default/files/2020-03/healthy-green-smoothie-in-glass-picture-id1130419746.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Kiwi_Smoothie.jpg/1920px-Kiwi_Smoothie.jpg',
+      'https://klcode-images.imgix.net/EefrZokeQyK0iGA4heul_kale-pineapple-coconut-smoothie.jpg',
     ],
   ),
   Dish(
@@ -76,7 +89,7 @@ final mockDishes = <Dish>[
     rating: 4.8,
     allergyNoteIds: [6, 7, 9],
     imgUrl: [
-      'https://dining.columbia.edu/sites/default/files/2019-07/scrambled%20eggs%20cropped%202.jpg',
+      'https://www.savoryexperiments.com/wp-content/uploads/2020/03/scrambled-eggs-1.jpg',
     ],
   ),
   Dish(
@@ -118,7 +131,7 @@ final mockDishes = <Dish>[
     allergyNoteIds: [2, 6],
     flavorIds: [6],
     imgUrl: [
-      'https://dining.columbia.edu/sites/default/files/2019-07/breakfastsausage.ferris.everyday.jpg'
+      'https://wholelottayum.com/wp-content/uploads/2021/07/air-fryer-chicken-sausage.jpg'
     ],
   ),
   Dish(
@@ -140,7 +153,6 @@ final mockDishes = <Dish>[
     allergyNoteIds: [5],
     flavorIds: [0],
     imgUrl: [
-      'https://dining.columbia.edu/sites/default/files/2019-07/waffles.ferris.everyday.jpg',
       'https://goboldwithbutter.com/BoldWithButter/media/recipe_images/Imported/buttermilk-grits-waffles.jpg'
     ],
   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/dish.dart';
+import 'package:foodfyi/pages/preview/preview.dart';
 
 class MenuList extends StatefulWidget {
   const MenuList({super.key});
@@ -32,41 +33,34 @@ class _MenuListState extends State<MenuList> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData().copyWith(
-        dividerColor: Colors.transparent,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            elevation: 0,
-            backgroundColor: pinkHeavyColor,
-            shape: const StadiumBorder(),
-            maximumSize: const Size(double.infinity, 50),
-            minimumSize: const Size(double.infinity, 50),
-          ),
-        ),
+    return Scaffold(
+      body: Center(
+        child: Text('menu'),
       ),
-      child: Scaffold(
-        body: Center(
-          child: Text('menu'),
-        ),
-        persistentFooterButtons: [
-          Center(
-            child: IntrinsicWidth(
-              child: ElevatedButton(
-                onPressed: () => {},
-                child: const Text("Release Menu"),
-              ),
+      persistentFooterButtons: [
+        Center(
+          child: IntrinsicWidth(
+            child: ElevatedButton(
+              onPressed: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const PreviewMenu(),
+                  ),
+                )
+              },
+              child: const Text("Release Menu"),
             ),
           ),
-        ],
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => setState(() => {}),
-          tooltip: 'Add Dish',
-          backgroundColor: pinkHeavyColor,
-          child: const Icon(
-            Icons.add,
-          ),
+        ),
+      ],
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => setState(() => {}),
+        tooltip: 'Add Dish',
+        backgroundColor: pinkHeavyColor,
+        child: const Icon(
+          Icons.add,
         ),
       ),
     );

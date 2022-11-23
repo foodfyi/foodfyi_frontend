@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
+import 'package:foodfyi/pages/menu/menu_list.dart';
 import 'package:foodfyi/pages/utils/drawer.dart';
 
 class MenuMain extends StatefulWidget {
@@ -48,14 +49,27 @@ class _MenuMainState extends State<MenuMain> {
     const Text('Chat List'),
   ];
 
+  static const List<Widget> _widgetOptions = <Widget>[
+    MenuList(),
+    // TODO replace with comments widget
+    Text('Comments'),
+    // TODO replace with chat widget
+    Text('Chat List'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: _appBarOptions[_selectedIndex],
         centerTitle: true,
+        elevation: 0,
       ),
       drawer: const CommonDrawer(),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _widgetOptions,
+      ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           color: Colors.white,

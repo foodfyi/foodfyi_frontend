@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodfyi/models/dish.dart';
 
 const pinkColor = Color(0xFFF2C6C2);
 const pinkLightColor = Color(0xFFF2E8DF);
@@ -26,3 +27,13 @@ const double imgWidth = 80.0;
 const double imgHeight = 80.0;
 
 const double dividerThickness = 1.5;
+
+// maximum load size per page
+const int menuLoadSize = 15;
+
+// Mock Data
+final mockDishes = <Dish>[
+  Dish(id: 0, name: 'Burger & Soda', price: 8, rating: 5.0),
+  Dish(id: 1, name: 'Hotdog', price: 6, rating: 5.0),
+  Dish(id: 2, name: 'Sushi', price: 6, rating: 5.0),
+];

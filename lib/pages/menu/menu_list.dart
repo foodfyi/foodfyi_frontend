@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/dish.dart';
+import 'package:foodfyi/pages/menu/menu_add.dart';
 import 'package:foodfyi/pages/preview/preview.dart';
 
 class MenuList extends StatefulWidget {
@@ -56,7 +57,11 @@ class _MenuListState extends State<MenuList> {
       ],
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => setState(() => {}),
+        onPressed: () => setState(() {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return const MenuAdd(barTitle: 'Add New Dish');
+          }));
+        }),
         tooltip: 'Add Dish',
         backgroundColor: pinkHeavyColor,
         child: const Icon(

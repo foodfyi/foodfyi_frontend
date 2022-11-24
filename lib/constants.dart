@@ -32,6 +32,7 @@ const double imgHeight = 80.0;
 const double dividerThickness = 1.5;
 
 const double previewImg = 150;
+const double menuImgSize = 60;
 const double iconsize = 15;
 const double tagSize = 25;
 const double previewDishImg = 300;

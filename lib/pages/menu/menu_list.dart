@@ -12,16 +12,15 @@ class MenuList extends StatefulWidget {
 }
 
 class _MenuListState extends State<MenuList> {
-  static final Dish loadingTag = Dish(id: -1, name: 'loading', price: -1);
-  var _dishes = <Dish>[loadingTag];
-  String searchString = "";
+  var _dishes = <Dish>[];
+  // String searchString = "";
 
   @override
   void initState() {
     super.initState();
     // TODO: initial data
     setState(() {
-      _dishes.insertAll(_dishes.length - 1, mockDishes);
+      _dishes.insertAll(_dishes.length, mockDishes);
     });
   }
 
@@ -35,8 +34,105 @@ class _MenuListState extends State<MenuList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('menu'),
+      body: Padding(
+        padding: const EdgeInsets.only(
+          left: defaultPadding,
+          right: defaultPadding,
+          top: defaultPadding,
+        ),
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: _dishes.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: defaultPadding),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: border,
+                    child: Image.network(
+                      width: menuImgSize,
+                      height: menuImgSize,
+                      _dishes[index].imgUrl![0],
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: defaultPadding,
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _dishes[index].name,
+                          style: textLargeSize,
+                        ),
+                        const SizedBox(height: 0.5 * defaultPadding),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.star_rounded,
+                              color: pinkHeavyColor,
+                              size: iconsize,
+                            ),
+                            Text(
+                              (_dishes[index].rating == null)
+                                  ? 'N/A'
+                                  : _dishes[index].rating!.toStringAsFixed(1),
+                              style: textMiddleSize,
+                            ),
+                            const SizedBox(width: defaultPadding),
+                            Text(
+                              '\$${_dishes[index].price}',
+                              style: textMiddleSize,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 0.5 * defaultPadding),
+                        SizedBox(
+                          width: 90,
+                          height: 20,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                // TODO: navigate to single food review
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.black,
+                                backgroundColor: pinkLightColor,
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(4))),
+                              ),
+                              child: const Text('Reviews')),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: defaultPadding,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: IconButton(
+                      icon: const Icon(Icons.edit_outlined),
+                      onPressed: () {},
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: IconButton(
+                      icon: const Icon(Icons.delete_outline_rounded),
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
       persistentFooterButtons: [
         Center(

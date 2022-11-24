@@ -12,18 +12,6 @@ class MenuList extends StatefulWidget {
 }
 
 class _MenuListState extends State<MenuList> {
-  var _dishes = <Dish>[];
-  // String searchString = "";
-
-  @override
-  void initState() {
-    super.initState();
-    // TODO: initial data
-    setState(() {
-      _dishes.insertAll(_dishes.length, mockDishes);
-    });
-  }
-
   @override
   void setState(fn) {
     if (mounted) {
@@ -42,7 +30,7 @@ class _MenuListState extends State<MenuList> {
         ),
         child: ListView.builder(
           shrinkWrap: true,
-          itemCount: _dishes.length,
+          itemCount: mockDishes.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: const EdgeInsets.only(bottom: defaultPadding),
@@ -53,7 +41,7 @@ class _MenuListState extends State<MenuList> {
                     child: Image.network(
                       width: menuImgSize,
                       height: menuImgSize,
-                      _dishes[index].imgUrl![0],
+                      mockDishes[index].imgUrl![0],
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -66,7 +54,7 @@ class _MenuListState extends State<MenuList> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          _dishes[index].name,
+                          mockDishes[index].name,
                           style: textLargeSize,
                         ),
                         const SizedBox(height: 0.5 * defaultPadding),
@@ -79,14 +67,16 @@ class _MenuListState extends State<MenuList> {
                               size: iconsize,
                             ),
                             Text(
-                              (_dishes[index].rating == null)
+                              (mockDishes[index].rating == null)
                                   ? 'N/A'
-                                  : _dishes[index].rating!.toStringAsFixed(1),
+                                  : mockDishes[index]
+                                      .rating!
+                                      .toStringAsFixed(1),
                               style: textMiddleSize,
                             ),
                             const SizedBox(width: defaultPadding),
                             Text(
-                              '\$${_dishes[index].price}',
+                              '\$${mockDishes[index].price}',
                               style: textMiddleSize,
                             ),
                           ],
@@ -103,8 +93,9 @@ class _MenuListState extends State<MenuList> {
                                 foregroundColor: Colors.black,
                                 backgroundColor: pinkLightColor,
                                 shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4))),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(4)),
+                                ),
                               ),
                               child: const Text('Reviews')),
                         ),
@@ -118,14 +109,33 @@ class _MenuListState extends State<MenuList> {
                     flex: 1,
                     child: IconButton(
                       icon: const Icon(Icons.edit_outlined),
-                      onPressed: () {},
+                      onPressed: () async {
+                        Dish? newDish = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => MenuAdd(
+                              barTitle: 'Edit Dish',
+                              oldDish: mockDishes[index],
+                            ),
+                          ),
+                        );
+                        setState(() {
+                          if (newDish != null) {
+                            mockDishes[index] = newDish;
+                          }
+                        });
+                      },
                     ),
                   ),
                   Expanded(
                     flex: 1,
                     child: IconButton(
                       icon: const Icon(Icons.delete_outline_rounded),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          mockDishes.removeAt(index);
+                        });
+                      },
                     ),
                   ),
                 ],
@@ -142,7 +152,9 @@ class _MenuListState extends State<MenuList> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => const PreviewMenu(),
+                    builder: (BuildContext context) => PreviewMenu(
+                      unSavedDishes: mockDishes,
+                    ),
                   ),
                 )
               },
@@ -153,11 +165,19 @@ class _MenuListState extends State<MenuList> {
       ],
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => setState(() {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return const MenuAdd(barTitle: 'Add New Dish');
-          }));
-        }),
+        onPressed: () async {
+          Dish? newDish = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) {
+              return const MenuAdd(barTitle: 'Add New Dish');
+            }),
+          );
+          setState(() {
+            if (newDish != null) {
+              mockDishes.add(newDish);
+            }
+          });
+        },
         tooltip: 'Add Dish',
         backgroundColor: pinkHeavyColor,
         child: const Icon(

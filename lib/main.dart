@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
           floatingLabelStyle: TextStyle(color: pinkHeavyColor),
+          errorStyle: TextStyle(color: Colors.red),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

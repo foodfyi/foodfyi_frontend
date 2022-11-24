@@ -4,14 +4,21 @@ import 'package:foodfyi/models/dish.dart';
 import 'package:foodfyi/pages/preview/detail.dart';
 
 class PreviewMenu extends StatefulWidget {
-  const PreviewMenu({super.key});
+  final List<Dish> unSavedDishes;
+  const PreviewMenu({super.key, required this.unSavedDishes});
 
   @override
   State<PreviewMenu> createState() => _PreviewMenuState();
 }
 
 class _PreviewMenuState extends State<PreviewMenu> {
-  List<Dish> previewDishes = mockDishes;
+  List<Dish> previewDishes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    previewDishes = widget.unSavedDishes;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +105,11 @@ class _PreviewMenuState extends State<PreviewMenu> {
                                     size: iconsize,
                                   ),
                                   Text(
-                                    '${previewDishes[index].rating}',
+                                    (previewDishes[index].rating == null)
+                                        ? 'N/A'
+                                        : previewDishes[index]
+                                            .rating!
+                                            .toStringAsFixed(1),
                                     style: textMiddleSize,
                                   ),
                                   const Padding(
@@ -195,7 +206,14 @@ class _PreviewMenuState extends State<PreviewMenu> {
         Center(
           child: IntrinsicWidth(
             child: ElevatedButton(
-              onPressed: () => {},
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Save Menu successfully'),
+                  ),
+                );
+                Navigator.pop(context);
+              },
               child: const Text("Release Menu"),
             ),
           ),

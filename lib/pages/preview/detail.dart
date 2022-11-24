@@ -125,7 +125,7 @@ class _DishDetailState extends State<DishDetail> {
                                   onPressed: null,
                                   style: previewTagStyle,
                                   child: Text(
-                                      mockAllergies[flavors[flavorIndex]].name),
+                                      mockFlavors[flavors[flavorIndex]].name),
                                 ),
                               );
                             },

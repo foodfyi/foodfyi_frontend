@@ -39,6 +39,9 @@ const double previewDishImg = 300;
 const int tagCrossAxisCount = 4;
 const double tagHeight = 50;
 
+const double dialogWidth = 320;
+const double dialogHeight = 400;
+
 ButtonStyle previewTagStyle = TextButton.styleFrom(
   elevation: 0,
   disabledForegroundColor: Colors.white,

@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:foodfyi/models/allergy.dart';
 import 'package:foodfyi/models/dish.dart';
 import 'package:foodfyi/models/flavor.dart';
+import 'package:foodfyi/models/review.dart';
 
 const pinkColor = Color(0xFFF2C6C2);
 const pinkLightColor = Color(0xFFF2E8DF);
 const pinkHeavyColor = Color(0xFFF28585);
 const orangeColor = Color(0xFFF2B263);
+const orangeLightColor = Color.fromARGB(255, 251, 246, 235);
 const greenColor = Color(0xFF86A69D);
 const greyColor = Color(0xFFC0C0C0);
 const greyHeavyColor = Color(0xFF8a8a8a);
 const greyBackground = Color(0xFFF5F5F5);
 const profileLabelColor = Color(0xFFC2BAB2);
+const placeholderColor = Color.fromRGBO(217, 217, 217, 0.5);
 
 const double logoWidth = 100;
 const double logoHeight = 100;
@@ -188,4 +191,44 @@ final mockFlavors = <Flavor>[
   Flavor(id: 5, name: 'Very Spicy'),
   Flavor(id: 6, name: 'Salty'),
   Flavor(id: 7, name: 'Very Salty'),
+];
+
+final mockReviews = <Review>[
+  Review(
+    id: 0,
+    date: '22/10/10',
+    comment: 'Oat meal tastes good',
+    name: 'Steve A',
+    anonymous: false,
+    dishIds: [0, 1, 5],
+    rating: 4.5,
+  ),
+  Review(
+    id: 1,
+    date: '22/10/28',
+    comment: 'Awesome food',
+    name: 'Steve B',
+    anonymous: false,
+    dishIds: [2, 3, 6],
+    rating: 4,
+  ),
+  Review(
+    id: 3,
+    date: '22/11/11',
+    comment: 'Oat meal tastes good',
+    name: 'Steve A',
+    anonymous: true,
+    dishIds: [4, 5, 7, 0],
+    rating: 3.5,
+  ),
+  Review(
+    id: 4,
+    date: '22/11/12',
+    comment:
+        'Chicken is one such filling that has gained popularity in recent years. Whether youre trying to eat less red meat, decrease fat intake, or manage a pork allergy, there are plenty of reasons to give chicken sausages a try',
+    name: 'Steve C',
+    anonymous: false,
+    dishIds: [6, 7, 8],
+    rating: 3.5,
+  ),
 ];

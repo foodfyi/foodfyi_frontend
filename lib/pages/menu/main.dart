@@ -67,10 +67,7 @@ class _MenuMainState extends State<MenuMain> {
         elevation: 0,
       ),
       drawer: const CommonDrawer(),
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _widgetOptions,
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           color: Colors.white,

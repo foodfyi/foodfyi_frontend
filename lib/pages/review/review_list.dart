@@ -21,6 +21,7 @@ class ReviewList extends StatelessWidget {
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: mockReviews.length,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),

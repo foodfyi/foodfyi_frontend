@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/pages/menu/menu_list.dart';
-<<<<<<< HEAD
 import 'package:foodfyi/pages/review/review_list.dart';
-=======
 import 'package:foodfyi/pages/chat/chat_list.dart';
->>>>>>> adeaa0b (finish chat list part)
 import 'package:foodfyi/pages/utils/drawer.dart';
 
 class MenuMain extends StatefulWidget {

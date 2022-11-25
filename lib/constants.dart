@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodfyi/models/allergy.dart';
 import 'package:foodfyi/models/dish.dart';
 import 'package:foodfyi/models/flavor.dart';
-<<<<<<< HEAD
 import 'package:foodfyi/models/review.dart';
-=======
 import 'package:foodfyi/models/chat.dart';
->>>>>>> adeaa0b (finish chat list part)
 
 const pinkColor = Color(0xFFF2C6C2);
 const pinkLightColor = Color(0xFFF2E8DF);
@@ -200,7 +197,6 @@ final mockFlavors = <Flavor>[
   Flavor(id: 7, name: 'Very Salty'),
 ];
 
-<<<<<<< HEAD
 final mockReviews = <Review>[
   Review(
     id: 0,
@@ -239,7 +235,8 @@ final mockReviews = <Review>[
     dishIds: [6, 7, 8],
     rating: 3.5,
   ),
-=======
+];
+
 final mockChats = <Chat>[
   Chat(
       id: 1,
@@ -253,5 +250,4 @@ final mockChats = <Chat>[
       missingCnt: 0,
       lastTime: "10-19",
       avatarUrl: "/assets/images/anonymous.png"),
->>>>>>> adeaa0b (finish chat list part)
 ];

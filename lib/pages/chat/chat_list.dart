@@ -33,12 +33,16 @@ class _ChatListState extends State<ChatList> {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
               onTap: () {
+                setState(() {
+                  mockChats[index].missingCnt = 0;
+                });
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) {
                     String title =
                         'Chat Detail with ${mockChats[index].userName}';
-                    return ChatDetail(barTitle: title);
+                    return ChatDetail(
+                        barTitle: title, userId: mockChats[index].id);
                   }),
                 );
               },
@@ -71,10 +75,10 @@ class _ChatListState extends State<ChatList> {
                       ),
                     ),
                     const SizedBox(
-                      width: 50 * defaultPadding,
+                      width: defaultPadding,
                     ),
                     Expanded(
-                      flex: 5,
+                      flex: 1,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

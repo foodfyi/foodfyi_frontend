@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/message.dart';
+import 'dart:async';
+import 'package:intl/intl.dart' as intl;
 
 class ChatDetail extends StatefulWidget {
   const ChatDetail({super.key, required this.barTitle, required this.userId});
@@ -332,7 +334,32 @@ class _ChatDetailState extends State<ChatDetail> {
 
   final int maxValue = 1 << 32;
 
-  sendTxt() async {}
+  sendTxt() async {
+    if (textEditingController.value.text.trim() == "") {
+      return;
+    }
 
-  addMessage(content, tag) {}
+    String message = textEditingController.value.text;
+    addMessage(message);
+    textEditingController.text = '';
+  }
+
+  addMessage(content) {
+    final f = intl.DateFormat('yyyy-MM-dd hh:mm a');
+    String time = f
+        .format(DateTime.fromMillisecondsSinceEpoch(
+            DateTime.now().millisecondsSinceEpoch))
+        .toString();
+    setState(() {
+      mockMessages[widget.userId]!.add(Message(
+          id: mockMessages[widget.userId]!.length,
+          fromId: 1,
+          direction: 0,
+          userName: "uncleluoyang1",
+          text: content,
+          time: time,
+          avatarUrl: "/assets/images/merchant-member.png"));
+    });
+    Timer(Duration(milliseconds: 100), () => _scrollController.jumpTo(0));
+  }
 }

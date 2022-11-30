@@ -53,9 +53,7 @@ class _MenuMainState extends State<MenuMain> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     MenuList(),
-    // TODO replace with comments widget
     ReviewList(),
-    // TODO replace with chat widget
     ChatList()
   ];
 

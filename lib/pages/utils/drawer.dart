@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/merchant.dart';
+import 'package:foodfyi/pages/login/login.dart';
 import 'package:foodfyi/pages/profile/profile.dart';
 
 class CommonDrawer extends StatefulWidget {
@@ -11,18 +12,17 @@ class CommonDrawer extends StatefulWidget {
 }
 
 class _CommonDrawerState extends State<CommonDrawer> {
-  Merchant merchant = Merchant(
-    id: 0,
-    merchantName: 'Uncle Luoyang',
-    name: 'luoyang member 1',
-    email: 'luoyang@xxx.com',
-    avatar: '',
-    phone: '666-666-6666',
-  );
+  Merchant merchant = mockMerchant;
+
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('${merchant.avatar}');
     return Drawer(
       backgroundColor: pinkLightColor,
       child: MediaQuery.removePadding(
@@ -46,8 +46,8 @@ class _CommonDrawerState extends State<CommonDrawer> {
                   Text(merchant.email),
                   const SizedBox(height: 0.5 * defaultPadding),
                   TextButton(
-                    onPressed: (() {
-                      Navigator.push(
+                    onPressed: (() async {
+                      Merchant? changedMerchant = await Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => Profile(
@@ -55,6 +55,11 @@ class _CommonDrawerState extends State<CommonDrawer> {
                           ),
                         ),
                       );
+                      if (changedMerchant != null) {
+                        setState(() {
+                          merchant = changedMerchant;
+                        });
+                      }
                     }),
                     child: const Text('Edit Profile'),
                   ),
@@ -80,7 +85,16 @@ class _CommonDrawerState extends State<CommonDrawer> {
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text("Sign Out"),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const Login();
+                    },
+                  ),
+                );
+              },
             ),
           ],
         ),

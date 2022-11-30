@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
+import 'package:foodfyi/pages/menu/main.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -102,21 +103,14 @@ class _LoginFormState extends State<LoginForm> {
                   // Validate will return true if the form is valid, or false if
                   // the form is invalid.
                   if (_formKey.currentState!.validate()) {
-                    // TODO: Process data.
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const MenuMain();
+                        },
+                      ),
                     );
-                    // TODO: navigate to home page
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) {
-                    //       return const GroupMain();
-                    //     },
-                    //   ),
-                    // );
-                    // debugPrint('email: ${_email.text}');
-                    // debugPrint('pwd: ${_pwd.text}');
                   }
                 },
                 child: const Text('Sign In'),

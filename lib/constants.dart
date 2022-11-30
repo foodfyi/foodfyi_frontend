@@ -260,7 +260,7 @@ final Map<int, List<Message>> mockMessages = {
         id: 0,
         fromId: 1,
         direction: 0,
-        userName: "uncleluoyang1",
+        userName: mockMerchant.name,
         text:
             "Hi, I am the owner of Uncle Luoyang, I found that you commented that the pizza is too salty. We have received your advice and our chef will improve on that. Are there any other dishes you find not good?",
         time: "2022-10-20 08:50 AM",
@@ -280,7 +280,7 @@ final Map<int, List<Message>> mockMessages = {
         id: 2,
         fromId: 1,
         direction: 0,
-        userName: "uncleluoyang1",
+        userName: mockMerchant.name,
         text:
             "Hi, I am the owner of Uncle Luoyang, I found that you commented that the pizza is too salty. We have received your advice and our chef will improve on that. Are there any other dishes you find not good?",
         time: "2022-10-20 08:50 AM",

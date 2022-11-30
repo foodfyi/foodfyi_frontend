@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/pages/menu/menu_list.dart';
 import 'package:foodfyi/pages/review/review_list.dart';
+import 'package:foodfyi/pages/chat/chat_list.dart';
 import 'package:foodfyi/pages/utils/drawer.dart';
 
 class MenuMain extends StatefulWidget {
@@ -55,7 +56,7 @@ class _MenuMainState extends State<MenuMain> {
     // TODO replace with comments widget
     ReviewList(),
     // TODO replace with chat widget
-    Text('Chat List'),
+    ChatList()
   ];
 
   @override

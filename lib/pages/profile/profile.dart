@@ -26,6 +26,13 @@ class _ProfileState extends State<Profile> {
   }
 
   @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -130,12 +137,10 @@ class _ProfileState extends State<Profile> {
           child: ElevatedButton(
             onPressed: () {
               if (_profileFormKey.currentState!.validate()) {
-                // TODO: Process data.
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Processing Data'),
-                  ),
-                );
+                setState(() {
+                  mockMerchant = changedMerchant;
+                });
+                Navigator.pop(context, mockMerchant);
               }
             },
             child: const Text('Save'),

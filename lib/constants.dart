@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodfyi/models/allergy.dart';
 import 'package:foodfyi/models/dish.dart';
 import 'package:foodfyi/models/flavor.dart';
+import 'package:foodfyi/models/merchant.dart';
 import 'package:foodfyi/models/message.dart';
 import 'package:foodfyi/models/review.dart';
 import 'package:foodfyi/models/chat.dart';
@@ -295,3 +296,12 @@ final Map<int, List<Message>> mockMessages = {
         avatarUrl: "/assets/images/anonymous.png")
   ]
 };
+
+Merchant mockMerchant = Merchant(
+  id: 0,
+  merchantName: 'John Jay Hall',
+  name: 'JJ Hall member 1',
+  email: 'jjmember@gmail.com',
+  avatar: '',
+  phone: '123-456-7890',
+);

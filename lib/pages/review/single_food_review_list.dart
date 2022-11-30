@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:foodfyi/constants.dart';
+import 'package:foodfyi/pages/chat/chat_detail.dart';
 import 'package:foodfyi/pages/review/dish_list.dart';
 
 class SingleFoodReviewList extends StatefulWidget {
-  static const routeName = "/singlefoodreview";
-  // final Dish dish;
-  const SingleFoodReviewList({super.key});
-  // const SingleFoodReviewList({super.key, required this.dish});
+  final int dishId;
+  const SingleFoodReviewList({super.key, required this.dishId});
 
   @override
   State<SingleFoodReviewList> createState() => _SingleFoodReviewListState();
@@ -16,8 +15,47 @@ class SingleFoodReviewList extends StatefulWidget {
 class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
   @override
   Widget build(BuildContext context) {
+    final int dishId = widget.dishId;
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_outlined),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Column(
+          children: [
+            const Text(
+              'Comments',
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.star_rounded,
+                  color: pinkHeavyColor,
+                  size: iconsize,
+                ),
+                Text(
+                  '${mockDishes[dishId].rating}',
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+                const Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: defaultPadding * 0.5),
+                ),
+                Text(
+                  '${mockDishes[dishId].reviewIds != null ? mockDishes[dishId].reviewIds?.length : 'N/A'} reviews',
+                  style: const TextStyle(fontSize: 15, color: greyHeavyColor),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -26,8 +64,9 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
                 padding: const EdgeInsets.all(defaultPadding),
                 child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: mockReviews.length,
+                  itemCount: mockDishes[dishId].reviewIds?.length,
                   itemBuilder: (BuildContext context, int index) {
+                    final int reviewId = mockDishes[dishId].reviewIds![index];
                     return Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       margin: const EdgeInsets.only(bottom: 30.0),
@@ -44,9 +83,9 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
                                     padding: const EdgeInsets.only(
                                         left: 5, bottom: 5),
                                     child: Text(
-                                      mockReviews[index].anonymous
+                                      mockReviews[reviewId].anonymous
                                           ? "Anonymous"
-                                          : mockReviews[index].name,
+                                          : mockReviews[reviewId].name,
                                       style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w500),
@@ -55,7 +94,7 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
                                   Row(
                                     children: [
                                       RatingBarIndicator(
-                                        rating: mockReviews[index].rating,
+                                        rating: mockReviews[reviewId].rating,
                                         itemBuilder: (context, index) =>
                                             const Icon(
                                           Icons.star_rounded,
@@ -66,7 +105,7 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
                                       Padding(
                                         padding:
                                             const EdgeInsets.only(left: 10),
-                                        child: Text(mockReviews[index].date,
+                                        child: Text(mockReviews[reviewId].date,
                                             style: const TextStyle(
                                                 fontSize: 15,
                                                 color: greyHeavyColor)),
@@ -75,7 +114,7 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
                                   ),
                                 ],
                               ),
-                              mockReviews[index].anonymous
+                              !mockReviews[reviewId].chatable
                                   ? const Padding(
                                       padding: EdgeInsets.only(right: 10),
                                       child: SizedBox(
@@ -91,7 +130,19 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
                                           height: 40,
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              // TODO: navigate to chat
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) {
+                                                  String title =
+                                                      'Chat Detail with ${mockChats[reviewId].userName}';
+                                                  return ChatDetail(
+                                                      barTitle: title,
+                                                      userId:
+                                                          mockChats[reviewId]
+                                                              .id);
+                                                }),
+                                              );
                                             },
                                             style: ElevatedButton.styleFrom(
                                               foregroundColor: Colors.white,
@@ -111,11 +162,11 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
                           Padding(
                             padding: const EdgeInsets.only(
                                 left: 5, top: 5, bottom: 10),
-                            child: Text(mockReviews[index].comment,
+                            child: Text(mockReviews[reviewId].comment,
                                 style: textMiddleSize),
                           ),
-                          const DishList(
-                            dishIds: [0],
+                          DishList(
+                            dishIds: [dishId],
                           ),
                         ],
                       ),

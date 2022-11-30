@@ -71,6 +71,7 @@ final mockDishes = <Dish>[
     rating: 5.0,
     allergyNoteIds: [5, 6, 7, 8],
     flavorIds: [0],
+    reviewIds: [0, 1],
     imgUrl: [
       'https://brokebankvegan.com/wp-content/uploads/2021/02/Mexican-Oatmeal-8.jpg',
     ],
@@ -80,6 +81,7 @@ final mockDishes = <Dish>[
     name: 'Bagels',
     price: 6,
     rating: 4.5,
+    reviewIds: [1],
     imgUrl: [
       'https://dining.columbia.edu/sites/default/files/2019-06/bagels.jpg',
       'https://www.kingarthurbaking.com/sites/default/files/2021-12/step-18.jpg',
@@ -94,6 +96,7 @@ final mockDishes = <Dish>[
     rating: 5.0,
     allergyNoteIds: [5],
     flavorIds: [0],
+    reviewIds: [1],
     imgUrl: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Kiwi_Smoothie.jpg/1920px-Kiwi_Smoothie.jpg',
       'https://klcode-images.imgix.net/EefrZokeQyK0iGA4heul_kale-pineapple-coconut-smoothie.jpg',
@@ -105,6 +108,7 @@ final mockDishes = <Dish>[
     price: 4,
     rating: 4.8,
     allergyNoteIds: [6, 7, 9],
+    reviewIds: [1],
     imgUrl: [
       'https://www.savoryexperiments.com/wp-content/uploads/2020/03/scrambled-eggs-1.jpg',
     ],
@@ -116,6 +120,7 @@ final mockDishes = <Dish>[
     rating: 4.9,
     allergyNoteIds: [7, 9],
     flavorIds: [0],
+    reviewIds: [1, 2],
     imgUrl: [
       'https://dining.columbia.edu/sites/default/files/2019-06/pancakes.jpeg',
     ],
@@ -126,6 +131,7 @@ final mockDishes = <Dish>[
     price: 7,
     rating: 4.9,
     allergyNoteIds: [5, 6, 7],
+    reviewIds: [1],
     imgUrl: [
       'https://dining.columbia.edu/sites/default/files/2019-07/roasted_cauliflower.jpg',
     ],
@@ -136,6 +142,7 @@ final mockDishes = <Dish>[
     price: 9,
     rating: 4.7,
     allergyNoteIds: [5, 7],
+    reviewIds: [1],
     imgUrl: [
       'https://dining.columbia.edu/sites/default/files/2019-07/iStock-576894832.jpg',
     ],
@@ -147,6 +154,7 @@ final mockDishes = <Dish>[
     rating: 4.7,
     allergyNoteIds: [2, 6],
     flavorIds: [6],
+    reviewIds: [1, 3],
     imgUrl: [
       'https://wholelottayum.com/wp-content/uploads/2021/07/air-fryer-chicken-sausage.jpg'
     ],
@@ -158,6 +166,7 @@ final mockDishes = <Dish>[
     rating: 5.0,
     allergyNoteIds: [5],
     flavorIds: [6],
+    reviewIds: [1],
     imgUrl: [
       'https://dining.columbia.edu/sites/default/files/2019-07/french%20toast_0.jpg',
     ],
@@ -169,6 +178,7 @@ final mockDishes = <Dish>[
     rating: 4.9,
     allergyNoteIds: [5],
     flavorIds: [0],
+    reviewIds: [1],
     imgUrl: [
       'https://goboldwithbutter.com/BoldWithButter/media/recipe_images/Imported/buttermilk-grits-waffles.jpg'
     ],
@@ -206,6 +216,7 @@ final mockReviews = <Review>[
     comment: 'Oat meal tastes good',
     name: 'Steve A',
     anonymous: false,
+    chatable: true,
     dishIds: [0, 1, 5],
     rating: 4.5,
   ),
@@ -215,25 +226,27 @@ final mockReviews = <Review>[
     comment: 'Awesome food',
     name: 'Steve B',
     anonymous: false,
-    dishIds: [2, 3, 6],
+    chatable: false,
+    dishIds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
     rating: 4,
   ),
   Review(
     id: 3,
     date: '22/11/11',
-    comment: 'Oat meal tastes good',
+    comment: 'Pancakes are very delicious, highly recommended',
     name: 'Steve A',
     anonymous: true,
+    chatable: true,
     dishIds: [4, 5, 7, 0],
     rating: 3.5,
   ),
   Review(
     id: 4,
     date: '22/11/12',
-    comment:
-        'Chicken is one such filling that has gained popularity in recent years. Whether youre trying to eat less red meat, decrease fat intake, or manage a pork allergy, there are plenty of reasons to give chicken sausages a try',
+    comment: 'The chicken sausage is a little bit spicy',
     name: 'Steve C',
     anonymous: false,
+    chatable: true,
     dishIds: [6, 7, 8],
     rating: 3.5,
   ),

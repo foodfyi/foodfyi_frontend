@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:foodfyi/constants.dart';
+import 'package:foodfyi/pages/chat/chat_detail.dart';
 import 'package:foodfyi/pages/review/dish_list.dart';
 import 'package:foodfyi/pages/utils/search_bar.dart';
 
-class ReviewList extends StatelessWidget {
+class ReviewList extends StatefulWidget {
   const ReviewList({super.key});
 
+  @override
+  State<ReviewList> createState() => _ReviewListState();
+}
+
+class _ReviewListState extends State<ReviewList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +76,7 @@ class ReviewList extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              mockReviews[index].anonymous
+                              !mockReviews[index].chatable
                                   ? const Padding(
                                       padding: EdgeInsets.only(right: 10),
                                       child: SizedBox(
@@ -86,7 +92,18 @@ class ReviewList extends StatelessWidget {
                                           height: 40,
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              // TODO: navigate to chat
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) {
+                                                  String title =
+                                                      'Chat Detail with ${mockChats[index].userName}';
+                                                  return ChatDetail(
+                                                      barTitle: title,
+                                                      userId:
+                                                          mockChats[index].id);
+                                                }),
+                                              );
                                             },
                                             style: ElevatedButton.styleFrom(
                                               foregroundColor: Colors.white,

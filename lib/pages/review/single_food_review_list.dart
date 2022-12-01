@@ -67,6 +67,8 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
                   itemCount: mockDishes[dishId].reviewIds?.length,
                   itemBuilder: (BuildContext context, int index) {
                     final int reviewId = mockDishes[dishId].reviewIds![index];
+                    final bool? isRelated =
+                        mockDishes[dishId].relatedReviewIds?.contains(reviewId);
                     return Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       margin: const EdgeInsets.only(bottom: 30.0),
@@ -159,12 +161,15 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
                                     ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 5, top: 5, bottom: 10),
-                            child: Text(mockReviews[reviewId].comment,
-                                style: textMiddleSize),
-                          ),
+                          isRelated == true
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 5, top: 5, bottom: 10),
+                                  child: Text(mockReviews[reviewId].comment,
+                                      style: textMiddleSize),
+                                )
+                              : const Padding(
+                                  padding: EdgeInsets.only(bottom: 15)),
                           DishList(
                             dishIds: [dishId],
                           ),

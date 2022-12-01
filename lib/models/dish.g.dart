@@ -27,6 +27,10 @@ Dish _$DishFromJson(Map<String, dynamic> json) => Dish(
               ?.map((e) => e as int)
               .toList() ??
           [],
+      relatedReviewIds: (json['relatedReviewIds'] as List<dynamic>?)
+              ?.map((e) => e as int)
+              .toList() ??
+          [],
     );
 
 Map<String, dynamic> _$DishToJson(Dish instance) => <String, dynamic>{
@@ -38,4 +42,5 @@ Map<String, dynamic> _$DishToJson(Dish instance) => <String, dynamic>{
       'allergyNoteIds': instance.allergyNoteIds,
       'flavorIds': instance.flavorIds,
       'reviewIds': instance.reviewIds,
+      'relatedReviewIds': instance.relatedReviewIds,
     };

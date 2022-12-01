@@ -60,7 +60,7 @@ class _ReviewListState extends State<ReviewList> {
                         onSelected: (value) => setState(() {
                           _scale = value;
                           List<Review> sortedReviewsByRecent = reviews.toList()
-                            ..sort((a, b) {
+                            ..sort((b, a) {
                               DateTime dt1 = DateTime.parse(a.date);
                               DateTime dt2 = DateTime.parse(b.date);
                               return dt1.compareTo(dt2);

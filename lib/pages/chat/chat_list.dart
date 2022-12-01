@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
+import 'package:foodfyi/models/chat.dart';
 import 'package:foodfyi/pages/chat/chat_detail.dart';
 
 class ChatList extends StatefulWidget {
@@ -10,6 +11,8 @@ class ChatList extends StatefulWidget {
 }
 
 class _ChatListState extends State<ChatList> {
+  List<Chat> chatList = mockChats;
+
   @override
   void setState(fn) {
     if (mounted) {
@@ -26,28 +29,28 @@ class _ChatListState extends State<ChatList> {
       ),
       child: ListView.separated(
         shrinkWrap: true,
-        itemCount: mockChats.length,
+        itemCount: chatList.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             leading: ClipRRect(
               borderRadius: border,
               child: Image.network(
-                mockChats[index].avatarUrl,
+                chatList[index].avatarUrl,
                 fit: BoxFit.cover,
               ),
             ),
             title: Text(
-              mockChats[index].userName,
+              chatList[index].userName,
               style: textLargeSize,
             ),
             trailing: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  mockChats[index].lastTime,
+                  chatList[index].lastTime,
                   style: chatTimeFont,
                 ),
-                if (mockChats[index].missingCnt > 0) ...[
+                if (chatList[index].missingCnt > 0) ...[
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -59,7 +62,7 @@ class _ChatListState extends State<ChatList> {
                         decoration: BoxDecoration(
                             color: pinkHeavyColor,
                             borderRadius: BorderRadius.circular(100)),
-                        child: Text(mockChats[index].missingCnt.toString(),
+                        child: Text(chatList[index].missingCnt.toString(),
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 15)),
                       )
@@ -69,19 +72,25 @@ class _ChatListState extends State<ChatList> {
                   ...[]
               ],
             ),
-            onTap: () {
+            onTap: () async {
               setState(() {
-                mockChats[index].missingCnt = 0;
+                chatList[index].missingCnt = 0;
               });
-              Navigator.push(
+
+              List<Chat>? changedList = await Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  String title =
-                      'Chat Detail with ${mockChats[index].userName}';
+                  String title = 'Chat Detail with ${chatList[index].userName}';
                   return ChatDetail(
-                      barTitle: title, userId: mockChats[index].id);
+                      barTitle: title, userId: chatList[index].id);
                 }),
               );
+
+              if (changedList != null) {
+                setState(() {
+                  chatList = changedList;
+                });
+              }
             },
           );
         },

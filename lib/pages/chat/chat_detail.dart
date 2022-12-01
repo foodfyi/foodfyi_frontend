@@ -27,7 +27,7 @@ class _ChatDetailState extends State<ChatDetail> {
 
   @override
   Widget build(BuildContext context) {
-    contentMaxWidth = MediaQuery.of(context).size.width - 300;
+    contentMaxWidth = MediaQuery.of(context).size.width * 0.6;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -170,8 +170,6 @@ class _ChatDetailState extends State<ChatDetail> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.center,
-                  width: 30,
-                  height: 30,
                   child: ClipRRect(
                     borderRadius: border,
                     child: Image.network(
@@ -259,8 +257,6 @@ class _ChatDetailState extends State<ChatDetail> {
             children: <Widget>[
               Container(
                 alignment: Alignment.center,
-                width: 30,
-                height: 30,
                 child: ClipRRect(
                   borderRadius: border,
                   child: Image.network(
@@ -355,7 +351,7 @@ class _ChatDetailState extends State<ChatDetail> {
           id: mockMessages[widget.userId]!.length,
           fromId: 1,
           direction: 0,
-          userName: "uncleluoyang1",
+          userName: mockMerchant.name,
           text: content,
           time: time,
           avatarUrl: "/assets/images/merchant-member.png"));

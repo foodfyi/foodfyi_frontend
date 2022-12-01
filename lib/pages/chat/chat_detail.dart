@@ -33,7 +33,7 @@ class _ChatDetailState extends State<ChatDetail> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_outlined),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, mockChats);
           },
         ),
         title: Text(widget.barTitle),
@@ -341,11 +341,8 @@ class _ChatDetailState extends State<ChatDetail> {
   }
 
   addMessage(content) {
-    final f = intl.DateFormat('yyyy-MM-dd hh:mm a');
-    String time = f
-        .format(DateTime.fromMillisecondsSinceEpoch(
-            DateTime.now().millisecondsSinceEpoch))
-        .toString();
+    final f1 = intl.DateFormat('yyyy-MM-dd hh:mm a');
+    final f2 = intl.DateFormat('hh:mm a');
     setState(() {
       mockMessages[widget.userId]!.add(Message(
           id: mockMessages[widget.userId]!.length,
@@ -353,8 +350,15 @@ class _ChatDetailState extends State<ChatDetail> {
           direction: 0,
           userName: mockMerchant.name,
           text: content,
-          time: time,
+          time: f1
+              .format(DateTime.fromMillisecondsSinceEpoch(
+                  DateTime.now().millisecondsSinceEpoch))
+              .toString(),
           avatarUrl: "/assets/images/merchant-member.png"));
+      mockChats[widget.userId].lastTime = f2
+          .format(DateTime.fromMillisecondsSinceEpoch(
+              DateTime.now().millisecondsSinceEpoch))
+          .toString();
     });
     Timer(Duration(milliseconds: 100), () => _scrollController.jumpTo(0));
   }

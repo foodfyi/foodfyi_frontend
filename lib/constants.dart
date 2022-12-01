@@ -241,13 +241,13 @@ final mockReviews = <Review>[
 
 final mockChats = <Chat>[
   Chat(
-      id: 1,
-      userName: "Steve A.",
+      id: 0,
+      userName: "Steve A",
       missingCnt: 1,
       lastTime: "09:00 AM",
       avatarUrl: "/assets/images/user1.png"),
   Chat(
-      id: 0,
+      id: 2,
       userName: "Anonymous User 1",
       missingCnt: 0,
       lastTime: "10-19",
@@ -255,19 +255,19 @@ final mockChats = <Chat>[
 ];
 
 final Map<int, List<Message>> mockMessages = {
-  1: <Message>[
+  0: <Message>[
     Message(
         id: 0,
-        fromId: 1,
+        fromId: 9999,
         direction: 0,
         userName: mockMerchant.name,
         text:
-            "Hi, I am the owner of Uncle Luoyang, I found that you commented that the pizza is too salty. We have received your advice and our chef will improve on that. Are there any other dishes you find not good?",
+            "Hi, I am the owner of John Jay Hall, I found that you commented that the pizza is too salty. We have received your advice and our chef will improve on that. Are there any other dishes you find not good?",
         time: "2022-10-20 08:50 AM",
         avatarUrl: "/assets/images/merchant-member.png"),
     Message(
         id: 1,
-        fromId: 2,
+        fromId: 0,
         direction: 1,
         userName: "Steve A.",
         text:
@@ -275,14 +275,14 @@ final Map<int, List<Message>> mockMessages = {
         time: "2022-10-20 08:52 AM",
         avatarUrl: "/assets/images/user1.png")
   ],
-  0: <Message>[
+  2: <Message>[
     Message(
         id: 2,
-        fromId: 1,
+        fromId: 9999,
         direction: 0,
         userName: mockMerchant.name,
         text:
-            "Hi, I am the owner of Uncle Luoyang, I found that you commented that the pizza is too salty. We have received your advice and our chef will improve on that. Are there any other dishes you find not good?",
+            "Hi, I am the owner of John Jay Hall, I found that you commented that the pizza is too salty. We have received your advice and our chef will improve on that. Are there any other dishes you find not good?",
         time: "2022-10-20 08:50 AM",
         avatarUrl: "/assets/images/merchant-member.png"),
     Message(
@@ -294,7 +294,9 @@ final Map<int, List<Message>> mockMessages = {
             "Thanks for reaching out. I am glad that you take my advice. And I forget to say that the vegetables in the burger are not fresh. I wish it would improve as well.",
         time: "2022-10-20 08:52 AM",
         avatarUrl: "/assets/images/anonymous.png")
-  ]
+  ],
+  1: <Message>[],
+  3: <Message>[],
 };
 
 Merchant mockMerchant = Merchant(

@@ -212,7 +212,7 @@ final mockFlavors = <Flavor>[
 final mockReviews = <Review>[
   Review(
     id: 0,
-    date: '22/10/10',
+    date: '2022-11-12',
     comment: 'Oat meal tastes good',
     name: 'Steve A',
     anonymous: false,
@@ -222,33 +222,33 @@ final mockReviews = <Review>[
   ),
   Review(
     id: 1,
-    date: '22/10/28',
+    date: '2022-11-11',
     comment: 'Awesome food',
     name: 'Steve B',
     anonymous: false,
     chatable: false,
     dishIds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    rating: 4,
+    rating: 5.0,
   ),
   Review(
     id: 3,
-    date: '22/11/11',
+    date: '2022-10-28',
     comment: 'Pancakes are very delicious, highly recommended',
     name: 'Steve A',
     anonymous: true,
     chatable: true,
     dishIds: [4, 5, 7, 0],
-    rating: 3.5,
+    rating: 4.0,
   ),
   Review(
     id: 4,
-    date: '22/11/12',
+    date: '2022-10-10',
     comment: 'The chicken sausage is a little bit spicy',
     name: 'Steve C',
     anonymous: false,
     chatable: true,
     dishIds: [6, 7, 8],
-    rating: 3.5,
+    rating: 3.0,
   ),
 ];
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
-import 'package:foodfyi/pages/login/login.dart';
 import 'package:foodfyi/pages/menu/main.dart';
-import 'package:foodfyi/pages/review/single_food_review_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -76,10 +74,6 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const MenuMain(),
-      routes: {
-        SingleFoodReviewList.routeName: (context) =>
-            const SingleFoodReviewList(),
-      },
     );
   }
 }

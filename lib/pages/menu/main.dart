@@ -40,7 +40,7 @@ class _MenuMainState extends State<MenuMain> {
               padding: EdgeInsets.symmetric(horizontal: defaultPadding * 0.5),
             ),
             Text(
-              '20 reviews',
+              '4 reviews',
               style: TextStyle(fontSize: 15, color: greyHeavyColor),
             ),
           ],

@@ -13,6 +13,7 @@ Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
       comment: json['comment'] as String,
       name: json['name'] as String,
       anonymous: json['anonymous'] as bool,
+      chatable: json['chatable'] as bool,
       dishIds: (json['dishIds'] as List<dynamic>).map((e) => e as int).toList(),
     );
 
@@ -23,5 +24,6 @@ Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{
       'comment': instance.comment,
       'name': instance.name,
       'anonymous': instance.anonymous,
+      'chatable': instance.chatable,
       'dishIds': instance.dishIds,
     };

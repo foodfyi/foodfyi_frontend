@@ -19,6 +19,9 @@ class Dish {
   @JsonKey(defaultValue: [])
   List<int>? flavorIds;
 
+  @JsonKey(defaultValue: [])
+  List<int>? reviewIds;
+
   Dish({
     required this.id,
     required this.name,
@@ -27,6 +30,7 @@ class Dish {
     this.imgUrl,
     this.allergyNoteIds,
     this.flavorIds,
+    this.reviewIds,
   });
 
   factory Dish.fromJson(Map<String, dynamic> json) => _$DishFromJson(json);

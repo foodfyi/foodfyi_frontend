@@ -3,6 +3,7 @@ import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/dish.dart';
 import 'package:foodfyi/pages/menu/menu_add.dart';
 import 'package:foodfyi/pages/preview/preview.dart';
+import 'package:foodfyi/pages/review/single_food_review_list.dart';
 
 class MenuList extends StatefulWidget {
   const MenuList({super.key});
@@ -87,7 +88,16 @@ class _MenuListState extends State<MenuList> {
                           height: 20,
                           child: ElevatedButton(
                               onPressed: () {
-                                // TODO: navigate to single food review
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return SingleFoodReviewList(
+                                        dishId: index,
+                                      );
+                                    },
+                                  ),
+                                );
                               },
                               style: ElevatedButton.styleFrom(
                                 foregroundColor: Colors.black,

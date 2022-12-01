@@ -10,6 +10,7 @@ class Review {
   String comment;
   String name;
   bool anonymous;
+  bool chatable;
   List<int> dishIds;
 
   Review({
@@ -19,6 +20,7 @@ class Review {
     required this.comment,
     required this.name,
     required this.anonymous,
+    required this.chatable,
     required this.dishIds,
   });
 

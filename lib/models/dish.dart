@@ -25,6 +25,9 @@ class Dish {
   @JsonKey(defaultValue: [])
   List<int>? relatedReviewIds;
 
+  @JsonKey(defaultValue: false)
+  bool? modified;
+
   Dish({
     required this.id,
     required this.name,
@@ -35,6 +38,7 @@ class Dish {
     this.flavorIds,
     this.reviewIds,
     this.relatedReviewIds,
+    this.modified,
   });
 
   factory Dish.fromJson(Map<String, dynamic> json) => _$DishFromJson(json);

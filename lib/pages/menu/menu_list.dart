@@ -24,17 +24,16 @@ class _MenuListState extends State<MenuList> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(
-          left: defaultPadding,
-          right: defaultPadding,
-          top: defaultPadding,
+        padding: const EdgeInsets.symmetric(
+          horizontal: defaultPadding,
         ),
         child: ListView.builder(
           shrinkWrap: true,
           itemCount: mockDishes.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
-              padding: const EdgeInsets.only(bottom: defaultPadding),
+              padding:
+                  const EdgeInsets.symmetric(vertical: defaultPadding * 0.5),
               child: Row(
                 children: [
                   ClipRRect(
@@ -112,8 +111,25 @@ class _MenuListState extends State<MenuList> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    width: defaultPadding,
+                  Expanded(
+                    flex: 2,
+                    child: mockDishes[index].modified!
+                        ? Container(
+                            padding: const EdgeInsets.all(3.0),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: greenColor),
+                              borderRadius: border,
+                            ),
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Modified',
+                              style: TextStyle(
+                                color: greenColor,
+                                fontSize: 12,
+                              ),
+                            ),
+                          )
+                        : Container(),
                   ),
                   Expanded(
                     flex: 1,
@@ -141,11 +157,29 @@ class _MenuListState extends State<MenuList> {
                     flex: 1,
                     child: IconButton(
                       icon: const Icon(Icons.delete_outline_rounded),
-                      onPressed: () {
-                        setState(() {
-                          mockDishes.removeAt(index);
-                        });
-                      },
+                      onPressed: () => showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Delete Dish'),
+                          content:
+                              const Text('Are you sure you want to delete?'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  mockDishes.removeAt(index);
+                                });
+                                Navigator.pop(context, 'OK');
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ],

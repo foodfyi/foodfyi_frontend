@@ -38,7 +38,7 @@ class Dish {
     this.flavorIds,
     this.reviewIds,
     this.relatedReviewIds,
-    this.modified,
+    this.modified = false,
   });
 
   factory Dish.fromJson(Map<String, dynamic> json) => _$DishFromJson(json);

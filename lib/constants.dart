@@ -63,7 +63,7 @@ ButtonStyle previewTagStyle = TextButton.styleFrom(
 const int menuLoadSize = 15;
 
 // Mock Data
-final mockDishes = <Dish>[
+final List<Dish> mockDishes = <Dish>[
   Dish(
     id: 0,
     name: 'Oat Meal',

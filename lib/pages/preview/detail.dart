@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/dish.dart';
+import 'package:foodfyi/pages/utils/indicator.dart';
 
 class DishDetail extends StatefulWidget {
   final Dish dish;
@@ -54,7 +55,15 @@ class _DishDetailState extends State<DishDetail> {
                             width: previewDishImg,
                             height: previewDishImg,
                             child: PageView.builder(
+                              controller: PageController(
+                                initialPage: widget.dish.activeImgPage!,
+                              ),
                               itemCount: widget.dish.imgUrl!.length,
+                              onPageChanged: (value) {
+                                setState(() {
+                                  widget.dish.activeImgPage = value;
+                                });
+                              },
                               itemBuilder: (context, pagePosition) {
                                 return ClipRRect(
                                   borderRadius: border,
@@ -71,6 +80,15 @@ class _DishDetailState extends State<DishDetail> {
                         )
                       ],
                     ),
+                    widget.dish.imgUrl!.length == 1
+                        ? Container()
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: indicators(
+                              widget.dish.imgUrl!.length,
+                              widget.dish.activeImgPage,
+                            ),
+                          ),
                     widget.dish.allergyNoteIds != null
                         ? Padding(
                             padding: const EdgeInsets.symmetric(

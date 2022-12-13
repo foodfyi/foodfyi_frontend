@@ -32,6 +32,7 @@ Dish _$DishFromJson(Map<String, dynamic> json) => Dish(
               .toList() ??
           [],
       modified: json['modified'] as bool? ?? false,
+      activeImgPage: json['activeImgPage'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$DishToJson(Dish instance) => <String, dynamic>{
@@ -45,4 +46,5 @@ Map<String, dynamic> _$DishToJson(Dish instance) => <String, dynamic>{
       'reviewIds': instance.reviewIds,
       'relatedReviewIds': instance.relatedReviewIds,
       'modified': instance.modified,
+      'activeImgPage': instance.activeImgPage,
     };

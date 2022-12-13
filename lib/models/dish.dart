@@ -28,6 +28,9 @@ class Dish {
   @JsonKey(defaultValue: false)
   bool? modified;
 
+  @JsonKey(defaultValue: 0)
+  int? activeImgPage;
+
   Dish({
     required this.id,
     required this.name,
@@ -39,6 +42,7 @@ class Dish {
     this.reviewIds,
     this.relatedReviewIds,
     this.modified = false,
+    this.activeImgPage = 0,
   });
 
   factory Dish.fromJson(Map<String, dynamic> json) => _$DishFromJson(json);

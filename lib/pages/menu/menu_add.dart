@@ -316,7 +316,9 @@ class _MenuAddState extends State<MenuAdd> {
                                 }
                                 if (_dishKey.currentState!.validate() &&
                                     !showInValidImgText) {
-                                  newDish.modified = true;
+                                  setState(() {
+                                    newDish.modified = true;
+                                  });
                                   Navigator.pop(context, newDish);
                                 }
                               },

@@ -51,10 +51,10 @@ class _MenuMainState extends State<MenuMain> {
     const Text('Chat List'),
   ];
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    MenuList(),
-    ReviewList(),
-    ChatList()
+  static final List<Widget> _widgetOptions = <Widget>[
+    MenuList(unSavedDishes: mockDishes),
+    const ReviewList(),
+    const ChatList()
   ];
 
   @override

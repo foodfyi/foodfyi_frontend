@@ -6,13 +6,22 @@ import 'package:foodfyi/pages/preview/preview.dart';
 import 'package:foodfyi/pages/review/single_food_review_list.dart';
 
 class MenuList extends StatefulWidget {
-  const MenuList({super.key});
+  final List<Dish> unSavedDishes;
+  const MenuList({super.key, required this.unSavedDishes});
 
   @override
   State<MenuList> createState() => _MenuListState();
 }
 
 class _MenuListState extends State<MenuList> {
+  List<Dish> previewDishes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    previewDishes = widget.unSavedDishes;
+  }
+
   @override
   void setState(fn) {
     if (mounted) {
@@ -29,7 +38,7 @@ class _MenuListState extends State<MenuList> {
         ),
         child: ListView.builder(
           shrinkWrap: true,
-          itemCount: mockDishes.length,
+          itemCount: previewDishes.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding:
@@ -41,7 +50,7 @@ class _MenuListState extends State<MenuList> {
                     child: Image.network(
                       width: menuImgSize,
                       height: menuImgSize,
-                      mockDishes[index].imgUrl![0],
+                      previewDishes[index].imgUrl![0],
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -54,7 +63,7 @@ class _MenuListState extends State<MenuList> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          mockDishes[index].name,
+                          previewDishes[index].name,
                           style: textLargeSize,
                         ),
                         const SizedBox(height: 0.5 * defaultPadding),
@@ -67,16 +76,16 @@ class _MenuListState extends State<MenuList> {
                               size: iconsize,
                             ),
                             Text(
-                              (mockDishes[index].rating == null)
+                              (previewDishes[index].rating == null)
                                   ? 'N/A'
-                                  : mockDishes[index]
+                                  : previewDishes[index]
                                       .rating!
                                       .toStringAsFixed(1),
                               style: textMiddleSize,
                             ),
                             const SizedBox(width: defaultPadding),
                             Text(
-                              '\$${mockDishes[index].price}',
+                              '\$${previewDishes[index].price}',
                               style: textMiddleSize,
                             ),
                           ],
@@ -113,7 +122,7 @@ class _MenuListState extends State<MenuList> {
                   ),
                   Expanded(
                     flex: 2,
-                    child: mockDishes[index].modified!
+                    child: previewDishes[index].modified!
                         ? Container(
                             padding: const EdgeInsets.all(3.0),
                             decoration: BoxDecoration(
@@ -141,13 +150,13 @@ class _MenuListState extends State<MenuList> {
                           MaterialPageRoute(
                             builder: (BuildContext context) => MenuAdd(
                               barTitle: 'Edit Dish',
-                              oldDish: mockDishes[index],
+                              oldDish: previewDishes[index],
                             ),
                           ),
                         );
                         setState(() {
                           if (newDish != null) {
-                            mockDishes[index] = newDish;
+                            previewDishes[index] = newDish;
                           }
                         });
                       },
@@ -171,7 +180,7 @@ class _MenuListState extends State<MenuList> {
                             TextButton(
                               onPressed: () {
                                 setState(() {
-                                  mockDishes.removeAt(index);
+                                  previewDishes.removeAt(index);
                                 });
                                 Navigator.pop(context, 'OK');
                               },
@@ -192,15 +201,20 @@ class _MenuListState extends State<MenuList> {
         Center(
           child: IntrinsicWidth(
             child: ElevatedButton(
-              onPressed: () => {
-                Navigator.push(
+              onPressed: () async {
+                List<Dish>? newMockDish = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) => PreviewMenu(
-                      unSavedDishes: mockDishes,
+                      unSavedDishes: previewDishes,
                     ),
                   ),
-                )
+                );
+                if (newMockDish != null) {
+                  setState(() {
+                    previewDishes = newMockDish;
+                  });
+                }
               },
               child: const Text("Release Menu"),
             ),
@@ -218,7 +232,7 @@ class _MenuListState extends State<MenuList> {
           );
           setState(() {
             if (newDish != null) {
-              mockDishes.add(newDish);
+              previewDishes.add(newDish);
             }
           });
         },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/dish.dart';
 import 'package:foodfyi/pages/preview/detail.dart';
+import 'package:foodfyi/pages/utils/indicator.dart';
 
 class PreviewMenu extends StatefulWidget {
   final List<Dish> unSavedDishes;
@@ -18,6 +19,14 @@ class _PreviewMenuState extends State<PreviewMenu> {
   void initState() {
     super.initState();
     previewDishes = widget.unSavedDishes;
+  }
+
+  void clearDishStatus() {
+    for (int i = 0; i < previewDishes.length; i++) {
+      setState(() {
+        previewDishes[i].modified = false;
+      });
+    }
   }
 
   @override
@@ -52,34 +61,64 @@ class _PreviewMenuState extends State<PreviewMenu> {
                         Expanded(
                           child: SizedBox(
                             height: previewImg + defaultPadding,
-                            child: PageView.builder(
-                              itemCount: previewDishes[index].imgUrl!.length,
-                              itemBuilder: (context, pagePosition) {
-                                return IconButton(
-                                  icon: ClipRRect(
-                                    borderRadius: border,
-                                    child: Image.network(
-                                      width: previewImg,
-                                      height: previewImg,
-                                      previewDishes[index]
-                                          .imgUrl![pagePosition],
-                                      fit: BoxFit.cover,
-                                    ),
+                            child: Stack(
+                              children: [
+                                PageView.builder(
+                                  controller: PageController(
+                                    initialPage:
+                                        previewDishes[index].activeImgPage!,
                                   ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return DishDetail(
-                                            dish: previewDishes[index],
-                                          );
-                                        },
+                                  itemCount:
+                                      previewDishes[index].imgUrl!.length,
+                                  onPageChanged: (value) {
+                                    setState(() {
+                                      previewDishes[index].activeImgPage =
+                                          value;
+                                    });
+                                  },
+                                  itemBuilder: (context, pagePosition) {
+                                    return IconButton(
+                                      icon: ClipRRect(
+                                        borderRadius: border,
+                                        child: Image.network(
+                                          width: previewImg,
+                                          height: previewImg,
+                                          previewDishes[index]
+                                              .imgUrl![pagePosition],
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) {
+                                              return DishDetail(
+                                                dish: previewDishes[index],
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
                                     );
                                   },
-                                );
-                              },
+                                ),
+                                previewDishes[index].imgUrl!.length == 1
+                                    ? Container()
+                                    : Positioned(
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: indicators(
+                                            previewDishes[index].imgUrl!.length,
+                                            previewDishes[index].activeImgPage,
+                                          ),
+                                        ),
+                                      )
+                              ],
                             ),
                           ),
                         ),
@@ -207,12 +246,13 @@ class _PreviewMenuState extends State<PreviewMenu> {
           child: IntrinsicWidth(
             child: ElevatedButton(
               onPressed: () {
+                clearDishStatus();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Save Menu successfully'),
                   ),
                 );
-                Navigator.pop(context);
+                Navigator.pop(context, previewDishes);
               },
               child: const Text("Release Menu"),
             ),

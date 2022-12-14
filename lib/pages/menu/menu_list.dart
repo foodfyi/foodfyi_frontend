@@ -102,6 +102,7 @@ class _MenuListState extends State<MenuList> {
                                     builder: (context) {
                                       return SingleFoodReviewList(
                                         dishId: index,
+                                        hasStoreRating: false,
                                       );
                                     },
                                   ),

@@ -6,7 +6,9 @@ import 'package:foodfyi/pages/review/dish_list.dart';
 
 class SingleFoodReviewList extends StatefulWidget {
   final int dishId;
-  const SingleFoodReviewList({super.key, required this.dishId});
+  final bool hasStoreRating;
+  const SingleFoodReviewList(
+      {super.key, required this.dishId, required this.hasStoreRating});
 
   @override
   State<SingleFoodReviewList> createState() => _SingleFoodReviewListState();
@@ -95,23 +97,28 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
                                   ),
                                   Row(
                                     children: [
-                                      RatingBarIndicator(
-                                        rating: mockReviews[reviewId].rating,
-                                        itemBuilder: (context, index) =>
-                                            const Icon(
-                                          Icons.star_rounded,
-                                          color: pinkHeavyColor,
-                                        ),
-                                        itemSize: 20,
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 10),
-                                        child: Text(mockReviews[reviewId].date,
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                color: greyHeavyColor)),
-                                      ),
+                                      widget.hasStoreRating == true
+                                          ? Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 10),
+                                              child: RatingBarIndicator(
+                                                rating: mockReviews[reviewId]
+                                                    .rating,
+                                                itemBuilder: (context, index) =>
+                                                    const Icon(
+                                                  Icons.star_rounded,
+                                                  color: pinkHeavyColor,
+                                                ),
+                                                itemSize: 20,
+                                              ))
+                                          : const Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 5),
+                                              child: SizedBox()),
+                                      Text(mockReviews[reviewId].date,
+                                          style: const TextStyle(
+                                              fontSize: 15,
+                                              color: greyHeavyColor)),
                                     ],
                                   ),
                                 ],

@@ -29,6 +29,7 @@ class _DishListState extends State<DishList> {
                   builder: (context) {
                     return SingleFoodReviewList(
                       dishId: dishId,
+                      hasStoreRating: false,
                     );
                   },
                 ),

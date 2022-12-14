@@ -73,31 +73,43 @@ class _ReviewListState extends State<ReviewList> {
                         }),
                         enableFeedback: false,
                         itemBuilder: (_) => [
-                          CheckedPopupMenuItem(
-                            checked: _scale == 'recent',
+                          PopupMenuItem(
                             value: sortingBy.recent,
-                            child: Row(
-                              children: [
-                                Checkbox(
-                                    value: _scale == sortingBy.recent,
-                                    onChanged: (value) {},
-                                    shape: const CircleBorder()),
-                                const Text('Sort By Recent'),
-                              ],
+                            child: SizedBox(
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 20),
+                                    child: Checkbox(
+                                        value: _scale == sortingBy.recent,
+                                        onChanged: (value) {},
+                                        shape: const CircleBorder()),
+                                  ),
+                                  const Text('Sort By Recent'),
+                                ],
+                              ),
                             ),
+                            onTap: () => {_scale = sortingBy.recent},
                           ),
-                          CheckedPopupMenuItem(
-                            checked: _scale == 'rating',
+                          PopupMenuItem(
                             value: sortingBy.rating,
-                            child: Row(
-                              children: [
-                                Checkbox(
-                                    value: _scale == sortingBy.rating,
-                                    onChanged: (value) {},
-                                    shape: const CircleBorder()),
-                                const Text('Sort By Rating'),
-                              ],
+                            child: SizedBox(
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 20),
+                                    child: Checkbox(
+                                        value: _scale == sortingBy.rating,
+                                        onChanged: (value) {},
+                                        shape: const CircleBorder()),
+                                  ),
+                                  const Text('Sort By Rating'),
+                                ],
+                              ),
                             ),
+                            onTap: () => {_scale = sortingBy.rating},
                           ),
                         ],
                       ),
@@ -211,6 +223,7 @@ class _ReviewListState extends State<ReviewList> {
                           ),
                           DishList(
                             dishIds: reviews[index].dishIds,
+                            clickable: true,
                           ),
                         ],
                       ),

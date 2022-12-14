@@ -4,7 +4,8 @@ import 'package:foodfyi/pages/review/single_food_review_list.dart';
 
 class DishList extends StatefulWidget {
   final List<int> dishIds;
-  const DishList({super.key, required this.dishIds});
+  final bool clickable;
+  const DishList({super.key, required this.dishIds, required this.clickable});
 
   @override
   State<DishList> createState() => _DishListState();
@@ -23,17 +24,19 @@ class _DishListState extends State<DishList> {
           var dishId = widget.dishIds[index];
           return GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return SingleFoodReviewList(
-                      dishId: dishId,
-                      hasStoreRating: false,
-                    );
-                  },
-                ),
-              );
+              widget.clickable == true
+                  ? Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return SingleFoodReviewList(
+                            dishId: dishId,
+                            hasStoreRating: false,
+                          );
+                        },
+                      ),
+                    )
+                  : null;
             },
             child: Container(
               width: 200,

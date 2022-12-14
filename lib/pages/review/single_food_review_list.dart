@@ -196,6 +196,7 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
                                         padding: EdgeInsets.only(bottom: 15)),
                                 DishList(
                                   dishIds: [dishId],
+                                  clickable: false,
                                 ),
                               ],
                             ),

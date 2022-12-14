@@ -87,15 +87,15 @@ class _PreviewMenuState extends State<PreviewMenu> {
                                             ? Image.network(
                                                 previewDishes[index]
                                                     .imgUrl![pagePosition],
-                                                width: imgWidth,
-                                                height: imgHeight,
+                                                width: previewImg,
+                                                height: previewImg,
                                                 fit: BoxFit.cover,
                                               )
                                             : Image.file(
                                                 File(previewDishes[index]
                                                     .imgUrl![pagePosition]),
-                                                width: imgWidth,
-                                                height: imgHeight,
+                                                width: previewImg,
+                                                height: previewImg,
                                                 fit: BoxFit.cover,
                                               ),
                                       ),

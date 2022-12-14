@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodfyi/constants.dart';
@@ -45,295 +47,312 @@ class _MenuAddState extends State<MenuAdd> {
         title: Text(widget.barTitle),
         elevation: 0,
       ),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints viewportConstraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: viewportConstraints.maxHeight,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: defaultPadding,
-                  vertical: defaultPadding * 2,
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
                 ),
-                child: Form(
-                  key: _dishKey,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          const Text(
-                            'Name:',
-                            style: textMiddleSize,
-                          ),
-                          const SizedBox(width: defaultPadding),
-                          Expanded(
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                labelStyle: textLargeSize,
-                              ),
-                              initialValue: (widget.oldDish != null)
-                                  ? widget.oldDish!.name
-                                  : '',
-                              textInputAction: TextInputAction.next,
-                              onChanged: (value) {
-                                setState(() {
-                                  newDish.name = value;
-                                });
-                              },
-                              validator: (value) {
-                                return value!.trim().isNotEmpty
-                                    ? null
-                                    : "Please enter dish name";
-                              },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: defaultPadding,
+                    vertical: defaultPadding * 2,
+                  ),
+                  child: Form(
+                    key: _dishKey,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Text(
+                              'Name:',
+                              style: textMiddleSize,
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: defaultPadding * 2),
-                      Row(
-                        children: [
-                          const Text(
-                            'Price:',
-                            style: textMiddleSize,
-                          ),
-                          const SizedBox(width: defaultPadding),
-                          const Text('\$'),
-                          Expanded(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.allow(
-                                  RegExp(r'(^\d*\.?\d*)'),
+                            const SizedBox(width: defaultPadding),
+                            Expanded(
+                              child: TextFormField(
+                                decoration: const InputDecoration(
+                                  labelStyle: textLargeSize,
+                                ),
+                                initialValue: (widget.oldDish != null)
+                                    ? widget.oldDish!.name
+                                    : '',
+                                textInputAction: TextInputAction.next,
+                                onChanged: (value) {
+                                  setState(() {
+                                    newDish.name = value;
+                                  });
+                                },
+                                validator: (value) {
+                                  return value!.trim().isNotEmpty
+                                      ? null
+                                      : "Please enter dish name";
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: defaultPadding * 2),
+                        Row(
+                          children: [
+                            const Text(
+                              'Price:',
+                              style: textMiddleSize,
+                            ),
+                            const SizedBox(width: defaultPadding),
+                            const Text('\$'),
+                            Expanded(
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.allow(
+                                    RegExp(r'(^\d*\.?\d*)'),
+                                  ),
+                                ],
+                                decoration: const InputDecoration(
+                                  labelStyle: textLargeSize,
+                                ),
+                                initialValue: (widget.oldDish != null)
+                                    ? widget.oldDish!.price.toString()
+                                    : '',
+                                textInputAction: TextInputAction.next,
+                                onChanged: (value) {
+                                  setState(() {
+                                    newDish.price = double.parse(value);
+                                  });
+                                },
+                                validator: (value) {
+                                  return value!.trim().isNotEmpty
+                                      ? null
+                                      : "Please enter dish price";
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: defaultPadding * 2),
+                        // Allergy Note
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                const Expanded(
+                                  flex: 9,
+                                  child: Text(
+                                    'Allergy Note(Optional):',
+                                    style: textMiddleSize,
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: IconButton(
+                                    icon: const Icon(Icons.add_circle_outline),
+                                    onPressed: () async {
+                                      String allergy = await showAddTag(
+                                        context: context,
+                                        type: 'Allergy',
+                                      );
+                                      setState(
+                                        () {
+                                          mockAllergies.add(
+                                            Allergy(
+                                              id: mockAllergies.last.id + 1,
+                                              name: allergy,
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
                                 ),
                               ],
-                              decoration: const InputDecoration(
-                                labelStyle: textLargeSize,
-                              ),
-                              initialValue: (widget.oldDish != null)
-                                  ? widget.oldDish!.price.toString()
-                                  : '',
-                              textInputAction: TextInputAction.next,
-                              onChanged: (value) {
-                                setState(() {
-                                  newDish.price = double.parse(value);
-                                });
-                              },
-                              validator: (value) {
-                                return value!.trim().isNotEmpty
-                                    ? null
-                                    : "Please enter dish price";
-                              },
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: defaultPadding * 2),
-                      // Allergy Note
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              const Expanded(
-                                flex: 9,
-                                child: Text(
-                                  'Allergy Note(Optional):',
+                            const SizedBox(height: defaultPadding * 0.5),
+                            Wrap(
+                              children: _buildChoiceChips(
+                                  mockAllergies, newDish.allergyNoteIds!),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: defaultPadding * 2),
+                        // Flavor Note
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                const Expanded(
+                                  flex: 9,
+                                  child: Text(
+                                    'Flavor(Optional):',
+                                    style: textMiddleSize,
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: IconButton(
+                                    icon: const Icon(Icons.add_circle_outline),
+                                    onPressed: () async {
+                                      String flavor = await showAddTag(
+                                        context: context,
+                                        type: 'Flavor',
+                                      );
+                                      setState(
+                                        () {
+                                          mockFlavors.add(
+                                            Flavor(
+                                              id: mockFlavors.last.id + 1,
+                                              name: flavor,
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: defaultPadding * 0.5),
+                            Wrap(
+                              children: _buildChoiceChips(
+                                  mockFlavors, newDish.flavorIds!),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: defaultPadding * 2),
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                const Text(
+                                  'Images:',
                                   style: textMiddleSize,
                                 ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                  icon: const Icon(Icons.add_circle_outline),
-                                  onPressed: () async {
-                                    String allergy = await showAddTag(
-                                      context: context,
-                                      type: 'Allergy',
-                                    );
-                                    setState(
-                                      () {
-                                        mockAllergies.add(
-                                          Allergy(
-                                            id: mockAllergies.last.id + 1,
-                                            name: allergy,
-                                          ),
-                                        );
+                                const SizedBox(width: defaultPadding),
+                                SizedBox(
+                                  height: 30,
+                                  child: IntrinsicWidth(
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        selectImages();
                                       },
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: defaultPadding * 0.5),
-                          Wrap(
-                            children: _buildChoiceChips(
-                                mockAllergies, newDish.allergyNoteIds!),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: defaultPadding * 2),
-                      // Flavor Note
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              const Expanded(
-                                flex: 9,
-                                child: Text(
-                                  'Flavor(Optional):',
-                                  style: textMiddleSize,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                  icon: const Icon(Icons.add_circle_outline),
-                                  onPressed: () async {
-                                    String flavor = await showAddTag(
-                                      context: context,
-                                      type: 'Flavor',
-                                    );
-                                    setState(
-                                      () {
-                                        mockFlavors.add(
-                                          Flavor(
-                                            id: mockFlavors.last.id + 1,
-                                            name: flavor,
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: defaultPadding * 0.5),
-                          Wrap(
-                            children: _buildChoiceChips(
-                                mockFlavors, newDish.flavorIds!),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: defaultPadding * 2),
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              const Text(
-                                'Images:',
-                                style: textMiddleSize,
-                              ),
-                              const SizedBox(width: defaultPadding),
-                              SizedBox(
-                                width: imgHeight,
-                                height: 30,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    selectImages();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor: Colors.black,
-                                    backgroundColor: pinkLightColor,
-                                  ),
-                                  child: const Text('Upload'),
-                                ),
-                              ),
-                            ],
-                          ),
-                          showInValidImgText
-                              ? Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: defaultPadding),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: const [
-                                      Text(
-                                        'Please upload at least 1 image',
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                        ),
+                                      style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.black,
+                                        backgroundColor: pinkLightColor,
                                       ),
-                                    ],
-                                  ),
-                                )
-                              : Container(),
-                          const SizedBox(height: defaultPadding * 0.5),
-                          GridView.builder(
-                            shrinkWrap: true,
-                            itemCount: newDish.imgUrl!.length,
-                            physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: tagCrossAxisCount,
-                            ),
-                            itemBuilder: (BuildContext context, int index) {
-                              // Image.file can be used in iOS
-                              return Stack(
-                                children: [
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: ClipRRect(
-                                      borderRadius: border,
-                                      child: Image.network(
-                                        newDish.imgUrl![index],
-                                        width: imgWidth,
-                                        height: imgHeight,
-                                        fit: BoxFit.cover,
-                                      ),
+                                      child: const Text('Upload'),
                                     ),
                                   ),
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          newDish.imgUrl!.removeAt(index);
-                                        });
-                                      },
-                                      child: const Icon(Icons.close),
+                                ),
+                              ],
+                            ),
+                            showInValidImgText
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: defaultPadding),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: const [
+                                        Text(
+                                          'Please upload at least 1 image',
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   )
-                                ],
-                              );
-                            },
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: defaultPadding),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (newDish.imgUrl == null ||
-                                    newDish.imgUrl!.isEmpty) {
-                                  setState(() {
-                                    showInValidImgText = true;
-                                  });
-                                }
-                                if (_dishKey.currentState!.validate() &&
-                                    !showInValidImgText) {
-                                  setState(() {
-                                    newDish.modified = true;
-                                  });
-                                  Navigator.pop(context, newDish);
-                                }
+                                : Container(),
+                            const SizedBox(height: defaultPadding * 0.5),
+                            GridView.builder(
+                              shrinkWrap: true,
+                              itemCount: newDish.imgUrl!.length,
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: tagCrossAxisCount,
+                              ),
+                              itemBuilder: (BuildContext context, int index) {
+                                // Image.file can be used in iOS
+                                return Stack(
+                                  children: [
+                                    Positioned(
+                                      top: 0,
+                                      right: 0,
+                                      child: ClipRRect(
+                                        borderRadius: border,
+                                        child: newDish.imgUrl![index]
+                                                .startsWith('http')
+                                            ? Image.network(
+                                                newDish.imgUrl![index],
+                                                width: imgWidth,
+                                                height: imgHeight,
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Image.file(
+                                                File(newDish.imgUrl![index]),
+                                                width: imgWidth,
+                                                height: imgHeight,
+                                                fit: BoxFit.cover,
+                                              ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      top: 0,
+                                      right: 0,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            newDish.imgUrl!.removeAt(index);
+                                          });
+                                        },
+                                        child: const Icon(Icons.close),
+                                      ),
+                                    )
+                                  ],
+                                );
                               },
-                              child: const Text('Confirm'),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: defaultPadding),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if (newDish.imgUrl == null ||
+                                      newDish.imgUrl!.isEmpty) {
+                                    setState(() {
+                                      showInValidImgText = true;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      showInValidImgText = false;
+                                    });
+                                  }
+                                  if (_dishKey.currentState!.validate() &&
+                                      !showInValidImgText) {
+                                    setState(() {
+                                      newDish.modified = true;
+                                    });
+                                    Navigator.pop(context, newDish);
+                                  }
+                                },
+                                child: const Text('Confirm'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

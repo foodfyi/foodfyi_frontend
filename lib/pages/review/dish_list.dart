@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/pages/review/single_food_review_list.dart';
@@ -76,12 +78,19 @@ class _DishListState extends State<DishList> {
                     ),
                     ClipRRect(
                       borderRadius: border,
-                      child: Image.network(
-                        width: menuImgSize,
-                        height: menuImgSize,
-                        mockDishes[dishId].imgUrl![0],
-                        fit: BoxFit.cover,
-                      ),
+                      child: mockDishes[dishId].imgUrl![0].startsWith('http')
+                          ? Image.network(
+                              mockDishes[dishId].imgUrl![0],
+                              width: menuImgSize,
+                              height: menuImgSize,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.file(
+                              File(mockDishes[dishId].imgUrl![0]),
+                              width: menuImgSize,
+                              height: menuImgSize,
+                              fit: BoxFit.cover,
+                            ),
                     ),
                   ],
                 ),

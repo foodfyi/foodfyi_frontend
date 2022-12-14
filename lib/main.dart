@@ -28,9 +28,11 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         primaryColor: pinkHeavyColor,
         appBarTheme: const AppBarTheme(
-            backgroundColor: pinkLightColor,
-            foregroundColor: Colors.black //here you can give the text color
-            ),
+          backgroundColor: pinkLightColor,
+          foregroundColor: Colors.black,
+          centerTitle: true,
+          elevation: 0, //here you can give the text color
+        ),
         inputDecorationTheme: const InputDecorationTheme(
           filled: true,
           fillColor: greyBackground,
@@ -49,6 +51,7 @@ class MyApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             elevation: 0,
+            foregroundColor: Colors.white,
             backgroundColor: pinkHeavyColor,
             shape: const StadiumBorder(),
             maximumSize: const Size(double.infinity, 50),

@@ -10,7 +10,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
   final _email = TextEditingController();
   final _pwd = TextEditingController();
   bool isChecked = true;
@@ -42,9 +42,6 @@ class _LoginFormState extends State<LoginForm> {
                     : "Please enter your email";
               },
             ),
-            Padding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom)),
             const SizedBox(height: defaultPadding),
             TextFormField(
               controller: _pwd,

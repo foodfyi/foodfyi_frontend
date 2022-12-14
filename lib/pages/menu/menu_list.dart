@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/dish.dart';
@@ -47,18 +49,25 @@ class _MenuListState extends State<MenuList> {
                 children: [
                   ClipRRect(
                     borderRadius: border,
-                    child: Image.network(
-                      width: menuImgSize,
-                      height: menuImgSize,
-                      previewDishes[index].imgUrl![0],
-                      fit: BoxFit.cover,
-                    ),
+                    child: previewDishes[index].imgUrl![0].startsWith('http')
+                        ? Image.network(
+                            previewDishes[index].imgUrl![0],
+                            width: imgWidth,
+                            height: imgHeight,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.file(
+                            File(previewDishes[index].imgUrl![0]),
+                            width: imgWidth,
+                            height: imgHeight,
+                            fit: BoxFit.cover,
+                          ),
                   ),
                   const SizedBox(
                     width: defaultPadding,
                   ),
                   Expanded(
-                    flex: 5,
+                    flex: 4,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -124,18 +133,20 @@ class _MenuListState extends State<MenuList> {
                   Expanded(
                     flex: 2,
                     child: previewDishes[index].modified!
-                        ? Container(
-                            padding: const EdgeInsets.all(3.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: greenColor),
-                              borderRadius: border,
-                            ),
-                            alignment: Alignment.center,
-                            child: const Text(
-                              'Modified',
-                              style: TextStyle(
-                                color: greenColor,
-                                fontSize: 12,
+                        ? IntrinsicWidth(
+                            child: Container(
+                              padding: const EdgeInsets.all(3.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: greenColor),
+                                borderRadius: border,
+                              ),
+                              alignment: Alignment.center,
+                              child: const Text(
+                                'Modified',
+                                style: TextStyle(
+                                  color: greenColor,
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
                           )
@@ -192,6 +203,7 @@ class _MenuListState extends State<MenuList> {
                       ),
                     ),
                   ),
+                  const SizedBox(width: 0.5 * defaultPadding),
                 ],
               ),
             );

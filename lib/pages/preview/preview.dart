@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/dish.dart';
@@ -43,8 +45,7 @@ class _PreviewMenuState extends State<PreviewMenu> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 0.5 * defaultPadding,
-          vertical: defaultPadding,
+          horizontal: defaultPadding,
         ),
         child: Column(
           children: [
@@ -80,13 +81,23 @@ class _PreviewMenuState extends State<PreviewMenu> {
                                     return IconButton(
                                       icon: ClipRRect(
                                         borderRadius: border,
-                                        child: Image.network(
-                                          width: previewImg,
-                                          height: previewImg,
-                                          previewDishes[index]
-                                              .imgUrl![pagePosition],
-                                          fit: BoxFit.cover,
-                                        ),
+                                        child: previewDishes[index]
+                                                .imgUrl![pagePosition]
+                                                .startsWith('http')
+                                            ? Image.network(
+                                                previewDishes[index]
+                                                    .imgUrl![pagePosition],
+                                                width: previewImg,
+                                                height: previewImg,
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Image.file(
+                                                File(previewDishes[index]
+                                                    .imgUrl![pagePosition]),
+                                                width: previewImg,
+                                                height: previewImg,
+                                                fit: BoxFit.cover,
+                                              ),
                                       ),
                                       onPressed: () {
                                         Navigator.push(

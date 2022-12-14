@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/dish.dart';
@@ -67,12 +69,21 @@ class _DishDetailState extends State<DishDetail> {
                               itemBuilder: (context, pagePosition) {
                                 return ClipRRect(
                                   borderRadius: border,
-                                  child: Image.network(
-                                    width: previewDishImg,
-                                    height: previewDishImg,
-                                    widget.dish.imgUrl![pagePosition],
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: widget.dish.imgUrl![pagePosition]
+                                          .startsWith('http')
+                                      ? Image.network(
+                                          widget.dish.imgUrl![pagePosition],
+                                          width: previewDishImg,
+                                          height: previewDishImg,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.file(
+                                          File(widget
+                                              .dish.imgUrl![pagePosition]),
+                                          width: previewDishImg,
+                                          height: previewDishImg,
+                                          fit: BoxFit.cover,
+                                        ),
                                 );
                               },
                             ),

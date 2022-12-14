@@ -25,13 +25,11 @@ class _CommonDrawerState extends State<CommonDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: pinkLightColor,
-      child: MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
+      child: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: defaultPadding * 2),
+              padding: const EdgeInsets.only(top: defaultPadding * 5),
               child: Column(
                 children: [
                   ClipOval(

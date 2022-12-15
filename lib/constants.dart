@@ -267,13 +267,13 @@ final mockChats = <Chat>[
       id: 0,
       userName: "Steve A",
       missingCnt: 1,
-      lastTime: "09:00 AM",
+      lastTime: 1671027300000,
       avatarUrl: "assets/images/user1.png"),
   Chat(
-      id: 2,
-      userName: "Anonymous User 1",
+      id: 1,
+      userName: "Anonymous",
       missingCnt: 0,
-      lastTime: "10-19",
+      lastTime: 1666185321000,
       avatarUrl: "assets/images/anonymous.png"),
 ];
 
@@ -292,13 +292,13 @@ final Map<int, List<Message>> mockMessages = {
         id: 1,
         fromId: 0,
         direction: 1,
-        userName: "Steve A.",
+        userName: "Steve A",
         text:
             "Thanks for reaching out. I am glad that you take my advice. And I forget to say that the vegetables in the burger are not fresh. I wish it would improve as well.",
         time: "2022-10-20 08:52 AM",
         avatarUrl: "assets/images/user1.png")
   ],
-  2: <Message>[
+  1: <Message>[
     Message(
         id: 2,
         fromId: 9999,
@@ -312,13 +312,13 @@ final Map<int, List<Message>> mockMessages = {
         id: 3,
         fromId: 2,
         direction: 1,
-        userName: "Anonymous User 1",
+        userName: "Anonymous",
         text:
             "Thanks for reaching out. I am glad that you take my advice. And I forget to say that the vegetables in the burger are not fresh. I wish it would improve as well.",
         time: "2022-10-20 08:52 AM",
         avatarUrl: "assets/images/anonymous.png")
   ],
-  1: <Message>[],
+  2: <Message>[],
   3: <Message>[],
 };
 

@@ -10,7 +10,7 @@ Chat _$ChatFromJson(Map<String, dynamic> json) => Chat(
       id: json['id'] as int,
       userName: json['userName'] as String,
       missingCnt: json['missingCnt'] as int,
-      lastTime: json['lastTime'] as String,
+      lastTime: json['lastTime'] as int,
       avatarUrl: json['avatarUrl'] as String,
     );
 

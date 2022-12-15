@@ -267,14 +267,14 @@ final mockChats = <Chat>[
       id: 0,
       userName: "Steve A",
       missingCnt: 1,
-      lastTime: "09:00 AM",
-      avatarUrl: "/assets/images/user1.png"),
+      lastTime: 1671027300000,
+      avatarUrl: "assets/images/user1.png"),
   Chat(
-      id: 2,
-      userName: "Anonymous User 1",
+      id: 1,
+      userName: "Anonymous",
       missingCnt: 0,
-      lastTime: "10-19",
-      avatarUrl: "/assets/images/anonymous.png"),
+      lastTime: 1666185321000,
+      avatarUrl: "assets/images/anonymous.png"),
 ];
 
 final Map<int, List<Message>> mockMessages = {
@@ -287,18 +287,18 @@ final Map<int, List<Message>> mockMessages = {
         text:
             "Hi, I am the owner of John Jay Hall, I found that you commented that the pizza is too salty. We have received your advice and our chef will improve on that. Are there any other dishes you find not good?",
         time: "2022-10-20 08:50 AM",
-        avatarUrl: "/assets/images/merchant-member.png"),
+        avatarUrl: "assets/images/merchant-member.png"),
     Message(
         id: 1,
         fromId: 0,
         direction: 1,
-        userName: "Steve A.",
+        userName: "Steve A",
         text:
             "Thanks for reaching out. I am glad that you take my advice. And I forget to say that the vegetables in the burger are not fresh. I wish it would improve as well.",
         time: "2022-10-20 08:52 AM",
-        avatarUrl: "/assets/images/user1.png")
+        avatarUrl: "assets/images/user1.png")
   ],
-  2: <Message>[
+  1: <Message>[
     Message(
         id: 2,
         fromId: 9999,
@@ -307,18 +307,18 @@ final Map<int, List<Message>> mockMessages = {
         text:
             "Hi, I am the owner of John Jay Hall, I found that you commented that the pizza is too salty. We have received your advice and our chef will improve on that. Are there any other dishes you find not good?",
         time: "2022-10-20 08:50 AM",
-        avatarUrl: "/assets/images/merchant-member.png"),
+        avatarUrl: "assets/images/merchant-member.png"),
     Message(
         id: 3,
         fromId: 2,
         direction: 1,
-        userName: "Anonymous User 1",
+        userName: "Anonymous",
         text:
             "Thanks for reaching out. I am glad that you take my advice. And I forget to say that the vegetables in the burger are not fresh. I wish it would improve as well.",
         time: "2022-10-20 08:52 AM",
-        avatarUrl: "/assets/images/anonymous.png")
+        avatarUrl: "assets/images/anonymous.png")
   ],
-  1: <Message>[],
+  2: <Message>[],
   3: <Message>[],
 };
 

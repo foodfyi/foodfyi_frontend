@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/chat.dart';
 import 'package:foodfyi/pages/chat/chat_detail.dart';
+import 'package:intl/intl.dart' as intl;
 
 class ChatList extends StatefulWidget {
   const ChatList({super.key});
@@ -22,6 +23,9 @@ class _ChatListState extends State<ChatList> {
 
   @override
   Widget build(BuildContext context) {
+    var dateFormat = intl.DateFormat('yyyy-MM-dd');
+    var pastFormat = intl.DateFormat('MM-dd');
+    var todayFormat = intl.DateFormat('hh:mm a');
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.only(
@@ -34,7 +38,7 @@ class _ChatListState extends State<ChatList> {
           return ListTile(
             leading: ClipRRect(
               borderRadius: border,
-              child: Image.network(
+              child: Image.asset(
                 chatList[index].avatarUrl,
                 fit: BoxFit.cover,
               ),
@@ -47,7 +51,13 @@ class _ChatListState extends State<ChatList> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  chatList[index].lastTime,
+                  dateFormat.format(DateTime.fromMillisecondsSinceEpoch(
+                              chatList[index].lastTime)) ==
+                          dateFormat.format(DateTime.now())
+                      ? todayFormat.format(DateTime.fromMillisecondsSinceEpoch(
+                          chatList[index].lastTime))
+                      : pastFormat.format(DateTime.fromMillisecondsSinceEpoch(
+                          chatList[index].lastTime)),
                   style: chatTimeFont,
                 ),
                 if (chatList[index].missingCnt > 0) ...[
@@ -80,9 +90,9 @@ class _ChatListState extends State<ChatList> {
               List<Chat>? changedList = await Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  String title = 'Chat Detail with ${chatList[index].userName}';
                   return ChatDetail(
-                      barTitle: title, userId: chatList[index].id);
+                      userName: chatList[index].userName,
+                      userId: chatList[index].id);
                 }),
               );
 

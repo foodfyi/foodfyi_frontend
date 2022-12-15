@@ -3,12 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/message.dart';
+import 'package:foodfyi/models/chat.dart';
 import 'dart:async';
 import 'package:intl/intl.dart' as intl;
 
 class ChatDetail extends StatefulWidget {
-  const ChatDetail({super.key, required this.barTitle, required this.userId});
-  final String barTitle;
+  const ChatDetail({super.key, required this.userName, required this.userId});
+  final String userName;
   final int userId;
 
   @override
@@ -36,7 +37,7 @@ class _ChatDetailState extends State<ChatDetail> {
             Navigator.pop(context, mockChats);
           },
         ),
-        title: Text(widget.barTitle),
+        title: Text('Chat Detail with ${widget.userName}'),
         elevation: 0,
       ),
       body: Container(
@@ -172,7 +173,7 @@ class _ChatDetailState extends State<ChatDetail> {
                   alignment: Alignment.center,
                   child: ClipRRect(
                     borderRadius: border,
-                    child: Image.network(
+                    child: Image.asset(
                       item.avatarUrl,
                       width: menuImgSize,
                       height: menuImgSize,
@@ -259,7 +260,7 @@ class _ChatDetailState extends State<ChatDetail> {
                 alignment: Alignment.center,
                 child: ClipRRect(
                   borderRadius: border,
-                  child: Image.network(
+                  child: Image.asset(
                     item.avatarUrl,
                     width: menuImgSize,
                     height: menuImgSize,
@@ -342,7 +343,6 @@ class _ChatDetailState extends State<ChatDetail> {
 
   addMessage(content) {
     final f1 = intl.DateFormat('yyyy-MM-dd hh:mm a');
-    final f2 = intl.DateFormat('hh:mm a');
     setState(() {
       mockMessages[widget.userId]!.add(Message(
           id: mockMessages[widget.userId]!.length,
@@ -354,12 +354,20 @@ class _ChatDetailState extends State<ChatDetail> {
               .format(DateTime.fromMillisecondsSinceEpoch(
                   DateTime.now().millisecondsSinceEpoch))
               .toString(),
-          avatarUrl: "/assets/images/merchant-member.png"));
-      mockChats[widget.userId].lastTime = f2
-          .format(DateTime.fromMillisecondsSinceEpoch(
-              DateTime.now().millisecondsSinceEpoch))
-          .toString();
+          avatarUrl: "assets/images/merchant-member.png"));
+      var idx = 0;
+      for (var i = 0; i < mockChats.length; i++) {
+        if (mockChats[i].id == widget.userId) {
+          idx = i;
+        }
+      }
+
+      mockChats[idx].lastTime = DateTime.now().millisecondsSinceEpoch;
+      mockChats.sort((a, b) => b.lastTime.compareTo(a.lastTime));
     });
-    Timer(Duration(milliseconds: 100), () => _scrollController.jumpTo(0));
+    Timer(
+        Duration(milliseconds: 100),
+        () => _scrollController
+            .jumpTo(_scrollController.position.maxScrollExtent));
   }
 }

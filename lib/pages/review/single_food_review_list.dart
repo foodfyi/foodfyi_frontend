@@ -150,17 +150,40 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
                                                 height: 40,
                                                 child: ElevatedButton(
                                                   onPressed: () {
+                                                    var id = 0;
+                                                    for (int i = 0;
+                                                        i < mockChats.length;
+                                                        i++) {
+                                                      if (mockReviews[reviewId]
+                                                              .anonymous &&
+                                                          mockChats[i]
+                                                                  .userName ==
+                                                              "Anonymous") {
+                                                        id = i;
+                                                        break;
+                                                      } else if (!mockReviews[
+                                                                  reviewId]
+                                                              .anonymous &&
+                                                          mockChats[i]
+                                                                  .userName ==
+                                                              mockReviews[
+                                                                      reviewId]
+                                                                  .name) {
+                                                        id = i;
+                                                        break;
+                                                      }
+                                                    }
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) {
-                                                        String title =
-                                                            'Chat Detail with ${mockChats[reviewId].userName}';
                                                         return ChatDetail(
-                                                            barTitle: title,
-                                                            userId: mockChats[
-                                                                    reviewId]
-                                                                .id);
+                                                            userName:
+                                                                mockChats[id]
+                                                                    .userName,
+                                                            userId:
+                                                                mockChats[id]
+                                                                    .id);
                                                       }),
                                                     );
                                                   },

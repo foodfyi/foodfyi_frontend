@@ -187,16 +187,31 @@ class _ReviewListState extends State<ReviewList> {
                                           height: 40,
                                           child: ElevatedButton(
                                             onPressed: () {
+                                              var id = 0;
+                                              for (int i = 0;
+                                                  i < mockChats.length;
+                                                  i++) {
+                                                if (reviews[index].anonymous &&
+                                                    mockChats[i].userName ==
+                                                        "Anonymous") {
+                                                  id = i;
+                                                  break;
+                                                } else if (!reviews[index]
+                                                        .anonymous &&
+                                                    mockChats[i].userName ==
+                                                        reviews[index].name) {
+                                                  id = i;
+                                                  break;
+                                                }
+                                              }
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) {
-                                                  String title =
-                                                      'Chat Detail with ${mockChats[index].userName}';
                                                   return ChatDetail(
-                                                      barTitle: title,
-                                                      userId:
-                                                          mockChats[index].id);
+                                                      userName: mockChats[id]
+                                                          .userName,
+                                                      userId: mockChats[id].id);
                                                 }),
                                               );
                                             },

@@ -7,7 +7,7 @@ class Chat {
   int id;
   String userName;
   int missingCnt;
-  String lastTime;
+  int lastTime;
   String avatarUrl;
 
   Chat({

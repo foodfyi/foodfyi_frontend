@@ -354,11 +354,15 @@ class _ChatDetailState extends State<ChatDetail> {
               .format(DateTime.fromMillisecondsSinceEpoch(
                   DateTime.now().millisecondsSinceEpoch))
               .toString(),
-          avatarUrl: "/assets/images/merchant-member.png"));
-      mockChats[widget.userId].lastTime = f2
-          .format(DateTime.fromMillisecondsSinceEpoch(
-              DateTime.now().millisecondsSinceEpoch))
-          .toString();
+          avatarUrl: "assets/images/merchant-member.png"));
+      for (var i = 0; i < mockChats.length; i++) {
+        if (mockChats[i].id == widget.userId) {
+          mockChats[i].lastTime = f2
+              .format(DateTime.fromMillisecondsSinceEpoch(
+                  DateTime.now().millisecondsSinceEpoch))
+              .toString();
+        }
+      }
     });
     Timer(Duration(milliseconds: 100), () => _scrollController.jumpTo(0));
   }

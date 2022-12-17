@@ -5,7 +5,7 @@ import 'package:foodfyi/models/review.dart';
 import 'package:foodfyi/pages/chat/chat_detail.dart';
 import 'package:foodfyi/pages/review/dish_list.dart';
 
-enum sortingBy { recent, rating }
+enum SortingBy { recent, rating }
 
 class ReviewList extends StatefulWidget {
   const ReviewList({super.key});
@@ -15,7 +15,7 @@ class ReviewList extends StatefulWidget {
 }
 
 class _ReviewListState extends State<ReviewList> {
-  sortingBy _scale = sortingBy.recent;
+  SortingBy _scale = SortingBy.recent;
   List<Review> reviews = mockReviews.toList();
 
   @override
@@ -67,14 +67,14 @@ class _ReviewListState extends State<ReviewList> {
                             });
                           List<Review> sortedReviewsByRating = reviews.toList()
                             ..sort((b, a) => a.rating.compareTo(b.rating));
-                          reviews = _scale == sortingBy.recent
+                          reviews = _scale == SortingBy.recent
                               ? sortedReviewsByRecent
                               : sortedReviewsByRating;
                         }),
                         enableFeedback: false,
                         itemBuilder: (_) => [
                           PopupMenuItem(
-                            value: sortingBy.recent,
+                            value: SortingBy.recent,
                             child: SizedBox(
                               child: Row(
                                 children: [
@@ -82,7 +82,7 @@ class _ReviewListState extends State<ReviewList> {
                                     padding: const EdgeInsets.only(
                                         left: 10, right: 20),
                                     child: Checkbox(
-                                        value: _scale == sortingBy.recent,
+                                        value: _scale == SortingBy.recent,
                                         onChanged: (value) {},
                                         shape: const CircleBorder()),
                                   ),
@@ -90,10 +90,10 @@ class _ReviewListState extends State<ReviewList> {
                                 ],
                               ),
                             ),
-                            onTap: () => {_scale = sortingBy.recent},
+                            onTap: () => {_scale = SortingBy.recent},
                           ),
                           PopupMenuItem(
-                            value: sortingBy.rating,
+                            value: SortingBy.rating,
                             child: SizedBox(
                               child: Row(
                                 children: [
@@ -101,7 +101,7 @@ class _ReviewListState extends State<ReviewList> {
                                     padding: const EdgeInsets.only(
                                         left: 10, right: 20),
                                     child: Checkbox(
-                                        value: _scale == sortingBy.rating,
+                                        value: _scale == SortingBy.rating,
                                         onChanged: (value) {},
                                         shape: const CircleBorder()),
                                   ),
@@ -109,7 +109,7 @@ class _ReviewListState extends State<ReviewList> {
                                 ],
                               ),
                             ),
-                            onTap: () => {_scale = sortingBy.rating},
+                            onTap: () => {_scale = SortingBy.rating},
                           ),
                         ],
                       ),
@@ -204,6 +204,9 @@ class _ReviewListState extends State<ReviewList> {
                                                   break;
                                                 }
                                               }
+                                              setState(() {
+                                                mockChats[id].missingCnt = 0;
+                                              });
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -269,7 +272,7 @@ class _ReviewListState extends State<ReviewList> {
     }).toList();
     setState(() {
       reviews = filteredReviews;
-      _scale = sortingBy.recent;
+      _scale = SortingBy.recent;
     });
   }
 }

@@ -23,6 +23,15 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _email.text = 'jjmember@gmail.com';
+      _pwd.text = '123456';
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
@@ -30,6 +39,7 @@ class _LoginFormState extends State<LoginForm> {
           children: [
             TextFormField(
               controller: _email,
+              initialValue: 'jjmember@gmail.com',
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
@@ -45,6 +55,7 @@ class _LoginFormState extends State<LoginForm> {
             const SizedBox(height: defaultPadding),
             TextFormField(
               controller: _pwd,
+              initialValue: '123456',
               textInputAction: TextInputAction.done,
               obscureText: true,
               decoration: const InputDecoration(

@@ -167,7 +167,7 @@ class _ChatDetailState extends State<ChatDetail> {
             padding: EdgeInsets.only(bottom: 20),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 5, right: 45),
+            padding: EdgeInsets.only(left: 15, right: 45),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -255,7 +255,7 @@ class _ChatDetailState extends State<ChatDetail> {
             padding: EdgeInsets.only(bottom: 20),
           ),
           Padding(
-              padding: EdgeInsets.only(right: 5, left: 45),
+              padding: EdgeInsets.only(right: 15, left: 45),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 textDirection: TextDirection.rtl,

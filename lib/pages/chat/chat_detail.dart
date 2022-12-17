@@ -29,6 +29,8 @@ class _ChatDetailState extends State<ChatDetail> {
   @override
   Widget build(BuildContext context) {
     contentMaxWidth = MediaQuery.of(context).size.width * 0.6;
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent));
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -252,78 +254,80 @@ class _ChatDetailState extends State<ChatDetail> {
             ),
             padding: EdgeInsets.only(bottom: 20),
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            textDirection: TextDirection.rtl,
-            children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                child: ClipRRect(
-                  borderRadius: border,
-                  child: Image.asset(
-                    item.avatarUrl,
-                    width: menuImgSize,
-                    height: menuImgSize,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+          Padding(
+              padding: EdgeInsets.only(right: 15, left: 45),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                textDirection: TextDirection.rtl,
                 children: <Widget>[
-                  Padding(
-                    child: Text(
-                      item.userName,
-                      softWrap: true,
-                      style: TextStyle(
-                        color: Color(0xFF677092),
-                        fontSize: 14,
+                  Container(
+                    alignment: Alignment.center,
+                    child: ClipRRect(
+                      borderRadius: border,
+                      child: Image.asset(
+                        item.avatarUrl,
+                        width: menuImgSize,
+                        height: menuImgSize,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    padding: EdgeInsets.only(right: 20),
                   ),
-                  Stack(
-                    alignment: Alignment.topRight,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      Row(
-                        textDirection: TextDirection.rtl,
+                      Padding(
+                        child: Text(
+                          item.userName,
+                          softWrap: true,
+                          style: TextStyle(
+                            color: Color(0xFF677092),
+                            fontSize: 14,
+                          ),
+                        ),
+                        padding: EdgeInsets.only(right: 20),
+                      ),
+                      Stack(
+                        alignment: Alignment.topRight,
                         children: <Widget>[
-                          ConstrainedBox(
-                            child: Container(
-                              margin: EdgeInsets.only(top: 8, right: 10),
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(4.0, 7.0),
-                                      color: Color(0x04000000),
-                                      blurRadius: 10,
+                          Row(
+                            textDirection: TextDirection.rtl,
+                            children: <Widget>[
+                              ConstrainedBox(
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 8, right: 10),
+                                  decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          offset: Offset(4.0, 7.0),
+                                          color: Color(0x04000000),
+                                          blurRadius: 10,
+                                        ),
+                                      ],
+                                      color: pinkHeavyColor,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                    item.text,
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
                                     ),
-                                  ],
-                                  color: pinkHeavyColor,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                item.text,
-                                softWrap: true,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
+                                  ),
+                                ),
+                                constraints: BoxConstraints(
+                                  maxWidth: contentMaxWidth,
                                 ),
                               ),
-                            ),
-                            constraints: BoxConstraints(
-                              maxWidth: contentMaxWidth,
-                            ),
+                            ],
                           ),
                         ],
                       ),
                     ],
                   ),
                 ],
-              ),
-            ],
-          )
+              )),
         ],
       ),
     );

@@ -256,7 +256,7 @@ final mockReviews = <Review>[
     comment: 'The chicken sausage is a little bit spicy',
     name: 'Steve C',
     anonymous: false,
-    chatable: true,
+    chatable: false,
     dishIds: [6, 7, 8],
     rating: 4.0,
   ),

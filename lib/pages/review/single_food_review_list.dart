@@ -62,173 +62,168 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
       ),
       body: SingleChildScrollView(
         child: mockDishes[dishId].reviewIds != null
-            ? Container(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(defaultPadding),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: mockDishes[dishId].reviewIds?.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final int reviewId =
-                              mockDishes[dishId].reviewIds![index];
-                          final bool? isRelated = mockDishes[dishId]
-                              .relatedReviewIds
-                              ?.contains(reviewId);
-                          return Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            margin: const EdgeInsets.only(bottom: 30.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 5, bottom: 5),
-                                          child: Text(
-                                            mockReviews[reviewId].anonymous
-                                                ? "Anonymous"
-                                                : mockReviews[reviewId].name,
-                                            style: const TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w500),
+            ? Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(defaultPadding),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: mockDishes[dishId].reviewIds?.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final int reviewId =
+                            mockDishes[dishId].reviewIds![index];
+                        final bool? isRelated = mockDishes[dishId]
+                            .relatedReviewIds
+                            ?.contains(reviewId);
+                        return Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          margin: const EdgeInsets.only(bottom: 30.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 5, bottom: 5),
+                                        child: Text(
+                                          mockReviews[reviewId].anonymous
+                                              ? "Anonymous"
+                                              : mockReviews[reviewId].name,
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          widget.hasStoreRating == true
+                                              ? Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 10),
+                                                  child: RatingBarIndicator(
+                                                    rating:
+                                                        mockReviews[reviewId]
+                                                            .rating,
+                                                    itemBuilder:
+                                                        (context, index) =>
+                                                            const Icon(
+                                                      Icons.star_rounded,
+                                                      color: pinkHeavyColor,
+                                                    ),
+                                                    itemSize: 20,
+                                                  ))
+                                              : const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(right: 5),
+                                                  child: SizedBox()),
+                                          Text(mockReviews[reviewId].date,
+                                              style: const TextStyle(
+                                                  fontSize: 15,
+                                                  color: greyHeavyColor)),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  !mockReviews[reviewId].chatable
+                                      ? const Padding(
+                                          padding: EdgeInsets.only(right: 10),
+                                          child: SizedBox(
+                                            width: 70,
+                                            height: 40,
+                                            child: Text('Refuse to connect'),
                                           ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            widget.hasStoreRating == true
-                                                ? Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 10),
-                                                    child: RatingBarIndicator(
-                                                      rating:
-                                                          mockReviews[reviewId]
-                                                              .rating,
-                                                      itemBuilder:
-                                                          (context, index) =>
-                                                              const Icon(
-                                                        Icons.star_rounded,
-                                                        color: pinkHeavyColor,
-                                                      ),
-                                                      itemSize: 20,
-                                                    ))
-                                                : const Padding(
-                                                    padding: EdgeInsets.only(
-                                                        right: 5),
-                                                    child: SizedBox()),
-                                            Text(mockReviews[reviewId].date,
-                                                style: const TextStyle(
-                                                    fontSize: 15,
-                                                    color: greyHeavyColor)),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    !mockReviews[reviewId].chatable
-                                        ? const Padding(
-                                            padding: EdgeInsets.only(right: 10),
-                                            child: SizedBox(
+                                        )
+                                      : Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 10),
+                                          child: SizedBox(
                                               width: 70,
                                               height: 40,
-                                              child: Text('Refuse to connect'),
-                                            ),
-                                          )
-                                        : Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 10),
-                                            child: SizedBox(
-                                                width: 70,
-                                                height: 40,
-                                                child: ElevatedButton(
-                                                  onPressed: () {
-                                                    var id = 0;
-                                                    for (int i = 0;
-                                                        i < mockChats.length;
-                                                        i++) {
-                                                      if (mockReviews[reviewId]
-                                                              .anonymous &&
-                                                          mockChats[i]
-                                                                  .userName ==
-                                                              "Anonymous") {
-                                                        id = i;
-                                                        break;
-                                                      } else if (!mockReviews[
-                                                                  reviewId]
-                                                              .anonymous &&
-                                                          mockChats[i]
-                                                                  .userName ==
-                                                              mockReviews[
-                                                                      reviewId]
-                                                                  .name) {
-                                                        id = i;
-                                                        break;
-                                                      }
+                                              child: ElevatedButton(
+                                                onPressed: () {
+                                                  var id = 0;
+                                                  for (int i = 0;
+                                                      i < mockChats.length;
+                                                      i++) {
+                                                    if (mockReviews[reviewId]
+                                                            .anonymous &&
+                                                        mockChats[i].userName ==
+                                                            "Anonymous") {
+                                                      id = i;
+                                                      break;
+                                                    } else if (!mockReviews[
+                                                                reviewId]
+                                                            .anonymous &&
+                                                        mockChats[i].userName ==
+                                                            mockReviews[
+                                                                    reviewId]
+                                                                .name) {
+                                                      id = i;
+                                                      break;
                                                     }
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) {
-                                                        return ChatDetail(
-                                                            userName:
-                                                                mockChats[id]
-                                                                    .userName,
-                                                            userId:
-                                                                mockChats[id]
-                                                                    .id);
-                                                      }),
-                                                    );
-                                                  },
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    foregroundColor:
-                                                        Colors.white,
-                                                    backgroundColor:
-                                                        pinkHeavyColor,
-                                                    shape:
-                                                        const RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  4)),
-                                                    ),
+                                                  }
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) {
+                                                      setState(() {
+                                                        mockChats[id]
+                                                            .missingCnt = 0;
+                                                      });
+                                                      return ChatDetail(
+                                                          userName:
+                                                              mockChats[id]
+                                                                  .userName,
+                                                          userId:
+                                                              mockChats[id].id);
+                                                    }),
+                                                  );
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  foregroundColor: Colors.white,
+                                                  backgroundColor:
+                                                      pinkHeavyColor,
+                                                  shape:
+                                                      const RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(4)),
                                                   ),
-                                                  child: const Text('Chat',
-                                                      style: textMiddleSize),
-                                                )),
-                                          ),
-                                  ],
-                                ),
-                                isRelated == true
-                                    ? Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 5, top: 5, bottom: 10),
-                                        child: Text(
-                                            mockReviews[reviewId].comment,
-                                            style: textMiddleSize),
-                                      )
-                                    : const Padding(
-                                        padding: EdgeInsets.only(bottom: 15)),
-                                DishList(
-                                  dishIds: [dishId],
-                                  clickable: false,
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                                                ),
+                                                child: const Text('Chat',
+                                                    style: textMiddleSize),
+                                              )),
+                                        ),
+                                ],
+                              ),
+                              isRelated == true
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 5, top: 5, bottom: 10),
+                                      child: Text(mockReviews[reviewId].comment,
+                                          style: textMiddleSize),
+                                    )
+                                  : const Padding(
+                                      padding: EdgeInsets.only(bottom: 15)),
+                              DishList(
+                                dishIds: [dishId],
+                                clickable: false,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               )
             : Container(),
       ),

@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/message.dart';
-import 'package:foodfyi/models/chat.dart';
 import 'dart:async';
 import 'package:intl/intl.dart' as intl;
 

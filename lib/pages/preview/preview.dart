@@ -21,6 +21,12 @@ class _PreviewMenuState extends State<PreviewMenu> {
   void initState() {
     super.initState();
     previewDishes = widget.unSavedDishes;
+    for (int i = 0; i < widget.unSavedDishes.length; i++) {
+      previewDishes[i].allergyNoteIds =
+          findExistIds(mockAllergies, widget.unSavedDishes[i].allergyNoteIds);
+      previewDishes[i].flavorIds =
+          findExistIds(mockFlavors, widget.unSavedDishes[i].flavorIds);
+    }
   }
 
   void clearDishStatus() {
@@ -174,7 +180,10 @@ class _PreviewMenuState extends State<PreviewMenu> {
                                 ],
                               ),
                               const SizedBox(height: 0.5 * defaultPadding),
-                              previewDishes[index].allergyNoteIds != null
+                              previewDishes[index].allergyNoteIds != null &&
+                                      previewDishes[index]
+                                          .allergyNoteIds!
+                                          .isNotEmpty
                                   ? Padding(
                                       padding: const EdgeInsets.only(
                                         bottom: 0.5 * defaultPadding,
@@ -188,9 +197,6 @@ class _PreviewMenuState extends State<PreviewMenu> {
                                               .allergyNoteIds!
                                               .length,
                                           itemBuilder: (_, allergyIndex) {
-                                            List<int> allergies =
-                                                previewDishes[index]
-                                                    .allergyNoteIds!;
                                             return IntrinsicWidth(
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
@@ -199,10 +205,10 @@ class _PreviewMenuState extends State<PreviewMenu> {
                                                 child: TextButton(
                                                   onPressed: null,
                                                   style: previewTagStyle,
-                                                  child: Text(mockAllergies[
-                                                          allergies[
-                                                              allergyIndex]]
-                                                      .name),
+                                                  child: Text(
+                                                    getName(mockAllergies,
+                                                        allergyIndex),
+                                                  ),
                                                 ),
                                               ),
                                             );
@@ -211,7 +217,8 @@ class _PreviewMenuState extends State<PreviewMenu> {
                                       ),
                                     )
                                   : Container(),
-                              previewDishes[index].flavorIds != null
+                              previewDishes[index].flavorIds != null &&
+                                      previewDishes[index].flavorIds!.isNotEmpty
                                   ? SizedBox(
                                       height: tagSize,
                                       child: ListView.builder(
@@ -221,8 +228,6 @@ class _PreviewMenuState extends State<PreviewMenu> {
                                             .flavorIds!
                                             .length,
                                         itemBuilder: (_, flavorIndex) {
-                                          List<int> flavors =
-                                              previewDishes[index].flavorIds!;
                                           return IntrinsicWidth(
                                             child: Padding(
                                               padding: const EdgeInsets.only(
@@ -230,9 +235,10 @@ class _PreviewMenuState extends State<PreviewMenu> {
                                               child: TextButton(
                                                 onPressed: null,
                                                 style: previewTagStyle,
-                                                child: Text(mockFlavors[
-                                                        flavors[flavorIndex]]
-                                                    .name),
+                                                child: Text(
+                                                  getName(
+                                                      mockFlavors, flavorIndex),
+                                                ),
                                               ),
                                             ),
                                           );

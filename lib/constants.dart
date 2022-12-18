@@ -37,6 +37,7 @@ const TextStyle titleSize = TextStyle(fontSize: 30);
 
 const double imgWidth = 80.0;
 const double imgHeight = 80.0;
+const double menuItemSize = 60.0;
 
 const double dividerThickness = 1.5;
 

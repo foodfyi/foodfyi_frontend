@@ -47,22 +47,59 @@ class _MenuListState extends State<MenuList> {
                   const EdgeInsets.symmetric(vertical: defaultPadding * 0.5),
               child: Row(
                 children: [
-                  ClipRRect(
-                    borderRadius: border,
-                    child: previewDishes[index].imgUrl![0].startsWith('http')
-                        ? Image.network(
-                            previewDishes[index].imgUrl![0],
-                            width: imgWidth,
-                            height: imgHeight,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.file(
-                            File(previewDishes[index].imgUrl![0]),
-                            width: imgWidth,
-                            height: imgHeight,
-                            fit: BoxFit.cover,
+                  Expanded(
+                    flex: 2,
+                    child: Stack(
+                      children: [
+                        IconButton(
+                          onPressed: () async {
+                            Dish? newDish = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => MenuAdd(
+                                  barTitle: 'Edit Dish',
+                                  oldDish: previewDishes[index],
+                                ),
+                              ),
+                            );
+                            setState(() {
+                              if (newDish != null) {
+                                previewDishes[index] = newDish;
+                              }
+                            });
+                          },
+                          icon: ClipRRect(
+                            borderRadius: border,
+                            child: previewDishes[index]
+                                    .imgUrl![0]
+                                    .startsWith('http')
+                                ? Image.network(
+                                    previewDishes[index].imgUrl![0],
+                                    width: imgWidth,
+                                    height: imgHeight,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.file(
+                                    File(previewDishes[index].imgUrl![0]),
+                                    width: imgWidth,
+                                    height: imgHeight,
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
+                          iconSize: menuItemSize,
+                        ),
+                        const Align(
+                          alignment: Alignment.bottomRight,
+                          child: Icon(
+                            Icons.edit_outlined,
+                            size: 20,
+                            color: pinkHeavyColor,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
+
                   const SizedBox(
                     width: defaultPadding,
                   ),
@@ -142,7 +179,7 @@ class _MenuListState extends State<MenuList> {
                               ),
                               alignment: Alignment.center,
                               child: const Text(
-                                'Modified',
+                                'Unreleased',
                                 style: TextStyle(
                                   color: greenColor,
                                   fontSize: 12,
@@ -152,28 +189,28 @@ class _MenuListState extends State<MenuList> {
                           )
                         : Container(),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: IconButton(
-                      icon: const Icon(Icons.edit_outlined),
-                      onPressed: () async {
-                        Dish? newDish = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => MenuAdd(
-                              barTitle: 'Edit Dish',
-                              oldDish: previewDishes[index],
-                            ),
-                          ),
-                        );
-                        setState(() {
-                          if (newDish != null) {
-                            previewDishes[index] = newDish;
-                          }
-                        });
-                      },
-                    ),
-                  ),
+                  // Expanded(
+                  //   flex: 1,
+                  //   child: IconButton(
+                  //     icon: const Icon(Icons.edit_outlined),
+                  //     onPressed: () async {
+                  //       Dish? newDish = await Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (BuildContext context) => MenuAdd(
+                  //             barTitle: 'Edit Dish',
+                  //             oldDish: previewDishes[index],
+                  //           ),
+                  //         ),
+                  //       );
+                  //       setState(() {
+                  //         if (newDish != null) {
+                  //           previewDishes[index] = newDish;
+                  //         }
+                  //       });
+                  //     },
+                  //   ),
+                  // ),
                   Expanded(
                     flex: 1,
                     child: IconButton(

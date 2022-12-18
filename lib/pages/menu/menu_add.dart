@@ -157,12 +157,14 @@ class _MenuAddState extends State<MenuAdd> {
                                       );
                                       setState(
                                         () {
-                                          mockAllergies.add(
-                                            Allergy(
-                                              id: mockAllergies.last.id + 1,
-                                              name: allergy,
-                                            ),
-                                          );
+                                          if (allergy.trim().isNotEmpty) {
+                                            mockAllergies.add(
+                                              Allergy(
+                                                id: mockAllergies.last.id + 1,
+                                                name: allergy,
+                                              ),
+                                            );
+                                          }
                                         },
                                       );
                                     },
@@ -201,12 +203,14 @@ class _MenuAddState extends State<MenuAdd> {
                                       );
                                       setState(
                                         () {
-                                          mockFlavors.add(
-                                            Flavor(
-                                              id: mockFlavors.last.id + 1,
-                                              name: flavor,
-                                            ),
-                                          );
+                                          if (flavor.trim().isNotEmpty) {
+                                            mockFlavors.add(
+                                              Flavor(
+                                                id: mockFlavors.last.id + 1,
+                                                name: flavor,
+                                              ),
+                                            );
+                                          }
                                         },
                                       );
                                     },
@@ -380,20 +384,20 @@ class _MenuAddState extends State<MenuAdd> {
             },
             selectedColor: pinkHeavyColor,
             showCheckmark: false,
-            deleteIcon: Icon(
-              Icons.close,
-              color: selectedChips.contains(element.id)
-                  ? Colors.white
-                  : Colors.black,
-            ),
-            onDeleted: () {
-              setState(() {
-                if (selectedChips.contains(element.id)) {
-                  selectedChips.remove(element.id);
-                }
-                allChips.removeAt(index);
-              });
-            },
+            // deleteIcon: Icon(
+            //   Icons.close,
+            //   color: selectedChips.contains(element.id)
+            //       ? Colors.white
+            //       : Colors.black,
+            // ),
+            // onDeleted: () {
+            //   setState(() {
+            //     if (selectedChips.contains(element.id)) {
+            //       selectedChips.remove(element.id);
+            //     }
+            //     allChips.removeAt(index);
+            //   });
+            // },
           ),
         ),
       );

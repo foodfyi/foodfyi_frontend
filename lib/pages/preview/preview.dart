@@ -260,7 +260,7 @@ class _PreviewMenuState extends State<PreviewMenu> {
                 clearDishStatus();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('Save Menu successfully'),
+                    content: Text('Release Menu successfully'),
                   ),
                 );
                 Navigator.pop(context, previewDishes);

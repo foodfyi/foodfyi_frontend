@@ -100,7 +100,8 @@ class _DishDetailState extends State<DishDetail> {
                               widget.dish.activeImgPage,
                             ),
                           ),
-                    widget.dish.allergyNoteIds != null
+                    widget.dish.allergyNoteIds != null &&
+                            widget.dish.allergyNoteIds!.isNotEmpty
                         ? Padding(
                             padding: const EdgeInsets.symmetric(
                               vertical: defaultPadding,
@@ -118,15 +119,14 @@ class _DishDetailState extends State<DishDetail> {
                                     itemCount:
                                         widget.dish.allergyNoteIds!.length,
                                     itemBuilder: (_, allergyIndex) {
-                                      List<int> allergies =
-                                          widget.dish.allergyNoteIds!;
                                       return Center(
                                         child: TextButton(
                                           onPressed: null,
                                           style: previewTagStyle,
-                                          child: Text(mockAllergies[
-                                                  allergies[allergyIndex]]
-                                              .name),
+                                          child: Text(
+                                            getName(
+                                                mockAllergies, allergyIndex),
+                                          ),
                                         ),
                                       );
                                     },
@@ -141,7 +141,8 @@ class _DishDetailState extends State<DishDetail> {
                             ),
                           )
                         : Container(),
-                    widget.dish.flavorIds != null
+                    widget.dish.flavorIds != null &&
+                            widget.dish.flavorIds!.isNotEmpty
                         ? Padding(
                             padding: const EdgeInsets.symmetric(
                               vertical: defaultPadding,
@@ -158,15 +159,13 @@ class _DishDetailState extends State<DishDetail> {
                                     shrinkWrap: true,
                                     itemCount: widget.dish.flavorIds!.length,
                                     itemBuilder: (_, flavorIndex) {
-                                      List<int> flavors =
-                                          widget.dish.flavorIds!;
                                       return Center(
                                         child: TextButton(
                                           onPressed: null,
                                           style: previewTagStyle,
                                           child: Text(
-                                              mockFlavors[flavors[flavorIndex]]
-                                                  .name),
+                                            getName(mockFlavors, flavorIndex),
+                                          ),
                                         ),
                                       );
                                     },

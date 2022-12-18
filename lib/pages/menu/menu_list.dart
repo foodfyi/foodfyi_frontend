@@ -58,7 +58,8 @@ class _MenuListState extends State<MenuList> {
                               MaterialPageRoute(
                                 builder: (BuildContext context) => MenuAdd(
                                   barTitle: 'Edit Dish',
-                                  oldDish: previewDishes[index],
+                                  oldDishIndex: index,
+                                  allDishes: previewDishes,
                                 ),
                               ),
                             );
@@ -99,7 +100,6 @@ class _MenuListState extends State<MenuList> {
                       ],
                     ),
                   ),
-
                   const SizedBox(
                     width: defaultPadding,
                   ),
@@ -189,28 +189,6 @@ class _MenuListState extends State<MenuList> {
                           )
                         : Container(),
                   ),
-                  // Expanded(
-                  //   flex: 1,
-                  //   child: IconButton(
-                  //     icon: const Icon(Icons.edit_outlined),
-                  //     onPressed: () async {
-                  //       Dish? newDish = await Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //           builder: (BuildContext context) => MenuAdd(
-                  //             barTitle: 'Edit Dish',
-                  //             oldDish: previewDishes[index],
-                  //           ),
-                  //         ),
-                  //       );
-                  //       setState(() {
-                  //         if (newDish != null) {
-                  //           previewDishes[index] = newDish;
-                  //         }
-                  //       });
-                  //     },
-                  //   ),
-                  // ),
                   Expanded(
                     flex: 1,
                     child: IconButton(
@@ -277,7 +255,10 @@ class _MenuListState extends State<MenuList> {
           Dish? newDish = await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) {
-              return const MenuAdd(barTitle: 'Add New Dish');
+              return MenuAdd(
+                barTitle: 'Add New Dish',
+                allDishes: previewDishes,
+              );
             }),
           );
           setState(() {

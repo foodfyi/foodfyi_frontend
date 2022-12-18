@@ -10,9 +10,15 @@ import 'package:foodfyi/pages/menu/tag_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MenuAdd extends StatefulWidget {
-  const MenuAdd({super.key, required this.barTitle, this.oldDish});
+  const MenuAdd({
+    super.key,
+    required this.barTitle,
+    this.oldDishIndex,
+    required this.allDishes,
+  });
   final String barTitle;
-  final Dish? oldDish;
+  final int? oldDishIndex;
+  final List<Dish> allDishes;
 
   @override
   State<MenuAdd> createState() => _MenuAddState();
@@ -24,12 +30,14 @@ class _MenuAddState extends State<MenuAdd> {
   final GlobalKey<FormState> _dishKey = GlobalKey<FormState>();
   bool showInValidImgText = false;
   bool _showTagDelete = false;
+  Dish? oldDish;
 
   @override
   void initState() {
     super.initState();
-    if (widget.oldDish != null) {
-      newDish = widget.oldDish!;
+    if (widget.allDishes.isNotEmpty && widget.oldDishIndex != null) {
+      newDish = widget.allDishes[widget.oldDishIndex!];
+      oldDish = widget.allDishes[widget.oldDishIndex!];
     }
     newDish.allergyNoteIds ??= [];
     newDish.flavorIds ??= [];
@@ -78,9 +86,8 @@ class _MenuAddState extends State<MenuAdd> {
                                 decoration: const InputDecoration(
                                   labelStyle: textLargeSize,
                                 ),
-                                initialValue: (widget.oldDish != null)
-                                    ? widget.oldDish!.name
-                                    : '',
+                                initialValue:
+                                    (oldDish != null) ? oldDish!.name : '',
                                 textInputAction: TextInputAction.next,
                                 onChanged: (value) {
                                   setState(() {
@@ -116,8 +123,8 @@ class _MenuAddState extends State<MenuAdd> {
                                 decoration: const InputDecoration(
                                   labelStyle: textLargeSize,
                                 ),
-                                initialValue: (widget.oldDish != null)
-                                    ? widget.oldDish!.price.toString()
+                                initialValue: (oldDish != null)
+                                    ? oldDish!.price.toString()
                                     : '',
                                 textInputAction: TextInputAction.next,
                                 onChanged: (value) {
@@ -176,7 +183,7 @@ class _MenuAddState extends State<MenuAdd> {
                             const SizedBox(height: defaultPadding * 0.5),
                             Wrap(
                               children: _buildChoiceChips(
-                                  mockAllergies, newDish.allergyNoteIds!),
+                                  mockAllergies, newDish.allergyNoteIds!, true),
                             )
                           ],
                         ),
@@ -222,7 +229,7 @@ class _MenuAddState extends State<MenuAdd> {
                             const SizedBox(height: defaultPadding * 0.5),
                             Wrap(
                               children: _buildChoiceChips(
-                                  mockFlavors, newDish.flavorIds!),
+                                  mockFlavors, newDish.flavorIds!, false),
                             )
                           ],
                         ),
@@ -322,32 +329,6 @@ class _MenuAddState extends State<MenuAdd> {
                                 );
                               },
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: defaultPadding),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  if (newDish.imgUrl == null ||
-                                      newDish.imgUrl!.isEmpty) {
-                                    setState(() {
-                                      showInValidImgText = true;
-                                    });
-                                  } else {
-                                    setState(() {
-                                      showInValidImgText = false;
-                                    });
-                                  }
-                                  if (_dishKey.currentState!.validate() &&
-                                      !showInValidImgText) {
-                                    setState(() {
-                                      newDish.modified = true;
-                                    });
-                                    Navigator.pop(context, newDish);
-                                  }
-                                },
-                                child: const Text('Confirm'),
-                              ),
-                            ),
                           ],
                         ),
                       ],
@@ -359,11 +340,35 @@ class _MenuAddState extends State<MenuAdd> {
           },
         ),
       ),
+      persistentFooterButtons: [
+        Center(
+          child: ElevatedButton(
+            onPressed: () {
+              if (newDish.imgUrl == null || newDish.imgUrl!.isEmpty) {
+                setState(() {
+                  showInValidImgText = true;
+                });
+              } else {
+                setState(() {
+                  showInValidImgText = false;
+                });
+              }
+              if (_dishKey.currentState!.validate() && !showInValidImgText) {
+                setState(() {
+                  newDish.modified = true;
+                });
+                Navigator.pop(context, newDish);
+              }
+            },
+            child: const Text('Confirm'),
+          ),
+        ),
+      ],
     );
   }
 
   List<Widget> _buildChoiceChips(
-      List<dynamic> allChips, List<int> selectedChips) {
+      List<dynamic> allChips, List<int> selectedChips, isAllergy) {
     List<Widget> choices = [];
     for (var index = 0; index < allChips.length; index++) {
       var element = allChips[index];
@@ -399,12 +404,44 @@ class _MenuAddState extends State<MenuAdd> {
                           : Colors.black,
                     ),
                     onDeleted: () {
-                      setState(() {
-                        if (selectedChips.contains(element.id)) {
-                          selectedChips.remove(element.id);
+                      bool canDelete = true;
+                      if (widget.allDishes.isNotEmpty) {
+                        for (int index = 0;
+                            index < widget.allDishes.length;
+                            index++) {
+                          if (index == widget.oldDishIndex) {
+                            continue;
+                          }
+                          if (isAllergy) {
+                            if (widget.allDishes[index].allergyNoteIds!
+                                .contains(element.id)) {
+                              canDelete = false;
+                              break;
+                            }
+                          } else {
+                            if (widget.allDishes[index].flavorIds!
+                                .contains(element.id)) {
+                              canDelete = false;
+                              break;
+                            }
+                          }
                         }
-                        allChips.removeAt(index);
-                      });
+                      }
+                      if (canDelete) {
+                        setState(() {
+                          if (selectedChips.contains(element.id)) {
+                            selectedChips.remove(element.id);
+                          }
+                          allChips.removeAt(index);
+                        });
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                'Cannot delete because it is used by other dishes'),
+                          ),
+                        );
+                      }
                     },
                   ),
                 )

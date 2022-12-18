@@ -331,3 +331,25 @@ Merchant mockMerchant = Merchant(
   avatar: '',
   phone: '123-456-7890',
 );
+
+List<int> findExistIds(List<dynamic> allChoices, List<int>? ids) {
+  if (ids == null || ids.isEmpty) {
+    return [];
+  }
+  List<int> existIds = [];
+  for (int index = 0; index < allChoices.length; index++) {
+    if (ids.contains(allChoices[index].id)) {
+      existIds.add(allChoices[index].id);
+    }
+  }
+  return existIds;
+}
+
+String getName(List<dynamic> allChoices, int id) {
+  for (int index = 0; index < allChoices.length; index++) {
+    if (id == allChoices[index].id) {
+      return allChoices[index].name;
+    }
+  }
+  return '';
+}

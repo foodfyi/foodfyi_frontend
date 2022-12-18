@@ -206,8 +206,12 @@ class _PreviewMenuState extends State<PreviewMenu> {
                                                   onPressed: null,
                                                   style: previewTagStyle,
                                                   child: Text(
-                                                    getName(mockAllergies,
-                                                        allergyIndex),
+                                                    getName(
+                                                      mockAllergies,
+                                                      previewDishes[index]
+                                                              .allergyNoteIds![
+                                                          allergyIndex],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -237,7 +241,11 @@ class _PreviewMenuState extends State<PreviewMenu> {
                                                 style: previewTagStyle,
                                                 child: Text(
                                                   getName(
-                                                      mockFlavors, flavorIndex),
+                                                    mockFlavors,
+                                                    previewDishes[index]
+                                                            .flavorIds![
+                                                        flavorIndex],
+                                                  ),
                                                 ),
                                               ),
                                             ),

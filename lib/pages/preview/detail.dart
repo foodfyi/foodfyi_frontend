@@ -125,7 +125,9 @@ class _DishDetailState extends State<DishDetail> {
                                           style: previewTagStyle,
                                           child: Text(
                                             getName(
-                                                mockAllergies, allergyIndex),
+                                                mockAllergies,
+                                                widget.dish.allergyNoteIds![
+                                                    allergyIndex]),
                                           ),
                                         ),
                                       );
@@ -164,7 +166,11 @@ class _DishDetailState extends State<DishDetail> {
                                           onPressed: null,
                                           style: previewTagStyle,
                                           child: Text(
-                                            getName(mockFlavors, flavorIndex),
+                                            getName(
+                                              mockFlavors,
+                                              widget
+                                                  .dish.flavorIds![flavorIndex],
+                                            ),
                                           ),
                                         ),
                                       );

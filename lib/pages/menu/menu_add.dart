@@ -10,11 +10,15 @@ import 'package:foodfyi/pages/menu/tag_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MenuAdd extends StatefulWidget {
-  const MenuAdd(
-      {super.key, required this.barTitle, this.oldDishIndex, this.allDishes});
+  const MenuAdd({
+    super.key,
+    required this.barTitle,
+    this.oldDishIndex,
+    required this.allDishes,
+  });
   final String barTitle;
   final int? oldDishIndex;
-  final List<Dish>? allDishes;
+  final List<Dish> allDishes;
 
   @override
   State<MenuAdd> createState() => _MenuAddState();
@@ -31,11 +35,9 @@ class _MenuAddState extends State<MenuAdd> {
   @override
   void initState() {
     super.initState();
-    if (widget.allDishes != null &&
-        widget.allDishes!.isNotEmpty &&
-        widget.oldDishIndex != null) {
-      newDish = widget.allDishes![widget.oldDishIndex!];
-      oldDish = widget.allDishes![widget.oldDishIndex!];
+    if (widget.allDishes.isNotEmpty && widget.oldDishIndex != null) {
+      newDish = widget.allDishes[widget.oldDishIndex!];
+      oldDish = widget.allDishes[widget.oldDishIndex!];
     }
     newDish.allergyNoteIds ??= [];
     newDish.flavorIds ??= [];
@@ -403,22 +405,21 @@ class _MenuAddState extends State<MenuAdd> {
                     ),
                     onDeleted: () {
                       bool canDelete = true;
-                      if (widget.allDishes != null &&
-                          widget.allDishes!.isNotEmpty) {
+                      if (widget.allDishes.isNotEmpty) {
                         for (int index = 0;
-                            index < widget.allDishes!.length;
+                            index < widget.allDishes.length;
                             index++) {
                           if (index == widget.oldDishIndex) {
                             continue;
                           }
                           if (isAllergy) {
-                            if (widget.allDishes![index].allergyNoteIds!
+                            if (widget.allDishes[index].allergyNoteIds!
                                 .contains(element.id)) {
                               canDelete = false;
                               break;
                             }
                           } else {
-                            if (widget.allDishes![index].flavorIds!
+                            if (widget.allDishes[index].flavorIds!
                                 .contains(element.id)) {
                               canDelete = false;
                               break;

@@ -255,7 +255,10 @@ class _MenuListState extends State<MenuList> {
           Dish? newDish = await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) {
-              return const MenuAdd(barTitle: 'Add New Dish');
+              return MenuAdd(
+                barTitle: 'Add New Dish',
+                allDishes: previewDishes,
+              );
             }),
           );
           setState(() {

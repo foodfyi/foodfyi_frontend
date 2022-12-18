@@ -245,7 +245,7 @@ final mockReviews = <Review>[
     id: 2,
     date: '2022-10-28',
     comment: 'Pancakes are very delicious, highly recommended',
-    name: 'Steve A',
+    name: 'Steve D',
     anonymous: true,
     chatable: true,
     dishIds: [4, 5, 7, 0],
@@ -267,12 +267,14 @@ final mockChats = <Chat>[
   Chat(
       id: 0,
       userName: "Steve A",
+      reviewId: 0,
       missingCnt: 1,
       lastTime: 1671027300000,
       avatarUrl: "assets/images/user1.png"),
   Chat(
       id: 1,
       userName: "Anonymous",
+      reviewId: 2,
       missingCnt: 0,
       lastTime: 1666185321000,
       avatarUrl: "assets/images/anonymous.png"),

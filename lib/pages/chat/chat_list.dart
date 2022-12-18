@@ -91,8 +91,10 @@ class _ChatListState extends State<ChatList> {
                 context,
                 MaterialPageRoute(builder: (context) {
                   return ChatDetail(
-                      userName: chatList[index].userName,
-                      userId: chatList[index].id);
+                    userName: chatList[index].userName,
+                    userId: chatList[index].id,
+                    reviewId: chatList[index].reviewId,
+                  );
                 }),
               );
 

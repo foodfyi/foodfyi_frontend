@@ -179,11 +179,13 @@ class _SingleFoodReviewListState extends State<SingleFoodReviewList> {
                                                             .missingCnt = 0;
                                                       });
                                                       return ChatDetail(
-                                                          userName:
-                                                              mockChats[id]
-                                                                  .userName,
-                                                          userId:
-                                                              mockChats[id].id);
+                                                        userName: mockChats[id]
+                                                            .userName,
+                                                        userId:
+                                                            mockChats[id].id,
+                                                        reviewId: mockChats[id]
+                                                            .reviewId,
+                                                      );
                                                     }),
                                                   );
                                                 },

@@ -212,9 +212,12 @@ class _ReviewListState extends State<ReviewList> {
                                                 MaterialPageRoute(
                                                     builder: (context) {
                                                   return ChatDetail(
-                                                      userName: mockChats[id]
-                                                          .userName,
-                                                      userId: mockChats[id].id);
+                                                    userName:
+                                                        mockChats[id].userName,
+                                                    userId: mockChats[id].id,
+                                                    reviewId:
+                                                        mockChats[id].reviewId,
+                                                  );
                                                 }),
                                               );
                                             },

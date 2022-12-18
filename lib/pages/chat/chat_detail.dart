@@ -1,15 +1,23 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:foodfyi/constants.dart';
 import 'package:foodfyi/models/message.dart';
+import 'package:foodfyi/models/review.dart';
+import 'package:foodfyi/pages/review/dish_list.dart';
 import 'dart:async';
 import 'package:intl/intl.dart' as intl;
 
 class ChatDetail extends StatefulWidget {
-  const ChatDetail({super.key, required this.userName, required this.userId});
+  const ChatDetail(
+      {super.key,
+      required this.userName,
+      required this.userId,
+      required this.reviewId});
   final String userName;
   final int userId;
+  final int reviewId;
 
   @override
   State<ChatDetail> createState() => _ChatDetailState();
@@ -19,6 +27,7 @@ class _ChatDetailState extends State<ChatDetail> {
   TextEditingController textEditingController = TextEditingController();
   final ScrollController _scrollController = ScrollController(); //listview的控制器
   double contentMaxWidth = 0;
+  List<Review> reviews = mockReviews.toList();
 
   @override
   void initState() {
@@ -47,6 +56,67 @@ class _ChatDetailState extends State<ChatDetail> {
         color: Color(0xFFF1F5FB),
         child: Column(
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 20, left: 10),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                margin: const EdgeInsets.only(bottom: 30.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 5, bottom: 5),
+                              child: Text(
+                                reviews[widget.reviewId].anonymous
+                                    ? "Anonymous"
+                                    : reviews[widget.reviewId].name,
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                RatingBarIndicator(
+                                  rating: reviews[widget.reviewId].rating,
+                                  itemBuilder: (context, index) => const Icon(
+                                    Icons.star_rounded,
+                                    color: pinkHeavyColor,
+                                  ),
+                                  itemSize: 20,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(reviews[widget.reviewId].date,
+                                      style: const TextStyle(
+                                          fontSize: 15, color: greyHeavyColor)),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 5, top: 5, bottom: 10),
+                      child: Text(reviews[widget.reviewId].comment,
+                          style: textMiddleSize),
+                    ),
+                    DishList(
+                      dishIds: reviews[widget.reviewId].dishIds,
+                      clickable: false,
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Expanded(
               flex: 1,
               child: Container(

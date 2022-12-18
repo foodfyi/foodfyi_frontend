@@ -6,6 +6,7 @@ part 'chat.g.dart';
 class Chat {
   int id;
   String userName;
+  int reviewId;
   int missingCnt;
   int lastTime;
   String avatarUrl;
@@ -13,6 +14,7 @@ class Chat {
   Chat({
     required this.id,
     required this.userName,
+    required this.reviewId,
     required this.missingCnt,
     required this.lastTime,
     required this.avatarUrl,

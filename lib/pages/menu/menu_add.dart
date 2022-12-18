@@ -23,6 +23,7 @@ class _MenuAddState extends State<MenuAdd> {
   final ImagePicker imagePicker = ImagePicker();
   final GlobalKey<FormState> _dishKey = GlobalKey<FormState>();
   bool showInValidImgText = false;
+  bool _showTagDelete = false;
 
   @override
   void initState() {
@@ -367,38 +368,65 @@ class _MenuAddState extends State<MenuAdd> {
     for (var index = 0; index < allChips.length; index++) {
       var element = allChips[index];
       choices.add(
-        Container(
-          padding: const EdgeInsets.all(2.0),
-          child: InputChip(
-            label: Text(element.name),
-            selected: selectedChips.contains(element.id),
-            labelStyle: selectedChips.contains(element.id)
-                ? const TextStyle(color: Colors.white)
-                : const TextStyle(color: Colors.black),
-            onSelected: (value) {
-              setState(() {
-                selectedChips.contains(element.id)
-                    ? selectedChips.remove(element.id)
-                    : selectedChips.add(element.id);
-              });
-            },
-            selectedColor: pinkHeavyColor,
-            showCheckmark: false,
-            // deleteIcon: Icon(
-            //   Icons.close,
-            //   color: selectedChips.contains(element.id)
-            //       ? Colors.white
-            //       : Colors.black,
-            // ),
-            // onDeleted: () {
-            //   setState(() {
-            //     if (selectedChips.contains(element.id)) {
-            //       selectedChips.remove(element.id);
-            //     }
-            //     allChips.removeAt(index);
-            //   });
-            // },
-          ),
+        GestureDetector(
+          onLongPress: () => {
+            setState((() {
+              _showTagDelete = true;
+            }))
+          },
+          child: _showTagDelete
+              ? Container(
+                  padding: const EdgeInsets.all(2.0),
+                  child: InputChip(
+                    label: Text(element.name),
+                    selected: selectedChips.contains(element.id),
+                    labelStyle: selectedChips.contains(element.id)
+                        ? const TextStyle(color: Colors.white)
+                        : const TextStyle(color: Colors.black),
+                    onSelected: (value) {
+                      setState(() {
+                        selectedChips.contains(element.id)
+                            ? selectedChips.remove(element.id)
+                            : selectedChips.add(element.id);
+                      });
+                    },
+                    selectedColor: pinkHeavyColor,
+                    showCheckmark: false,
+                    deleteIcon: Icon(
+                      Icons.close,
+                      color: selectedChips.contains(element.id)
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    onDeleted: () {
+                      setState(() {
+                        if (selectedChips.contains(element.id)) {
+                          selectedChips.remove(element.id);
+                        }
+                        allChips.removeAt(index);
+                      });
+                    },
+                  ),
+                )
+              : Container(
+                  padding: const EdgeInsets.all(2.0),
+                  child: InputChip(
+                    label: Text(element.name),
+                    selected: selectedChips.contains(element.id),
+                    labelStyle: selectedChips.contains(element.id)
+                        ? const TextStyle(color: Colors.white)
+                        : const TextStyle(color: Colors.black),
+                    onSelected: (value) {
+                      setState(() {
+                        selectedChips.contains(element.id)
+                            ? selectedChips.remove(element.id)
+                            : selectedChips.add(element.id);
+                      });
+                    },
+                    selectedColor: pinkHeavyColor,
+                    showCheckmark: false,
+                  ),
+                ),
         ),
       );
     }
